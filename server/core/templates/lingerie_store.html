@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'CSS/lingerie_store.css' %}">
+</head>
+<body>
+
+  <div class="lingerie_store_nav_wrapper">
+
+    <h2 class="logo_text">Feminine Essence</h2>
+
+    <ul class="nav_links">
+      <li><a href="{% url 'landing' %}">Home</a></li>
+      <li><a href="{% url 'lingerie_store' %}">Loja</a></li>
+      <li><a href="#">Sobre</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+  </div>
+
+  <div class="page_title_wrapper">
+    <h2 class="page_title">Coleção 2026</h2>
+    <h2 class="page_title_01">Lingerie & Conjuntos</h2>
+
+    <div class="page_filtering_tab_wrapper">
+      <button class="filtering_tab">
+        <span>Conjuntos</span>
+      </button>
+
+      <button class="filtering_tab">
+        <span>Sultiãns</span>
+      </button>
+
+      <button class="filtering_tab">
+        <span>Calcinhas</span>
+      </button>
+
+      <button class="filtering_tab">
+        <span>Bodies</span>
+      </button>
+
+      <button class="filtering_tab">
+        <span>Camisolas</span>
+      </button>
+    </div>
+    
+  </div>
+
+    <div class="products">
+        {% for product in products %}
+        <div class="card">
+          <div class="card-img">
+            {% if product.badge %}
+              <div class="badge">{{ product.badge }}</div>
+            {% endif %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div class="card-body">
+            <p class="card-name">{{ product.name }}</p>
+            <p class="card-desc">{{ product.description }}</p>
+            <div class="card-footer">
+              <span class="price">R$ {{ product.price }}</span>
+              <button class="btn_add_to_cart">
+                <img src="{% static 'MEDIA/images/icons/cart_icon.png' %}" alt="" srcset="">
+              </button>
+              <button class="btn-buy">Comprar</button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    
+        <div class="products_wrapper">
+          <div class="product_card_wrapper">
+            <div class="product_card_media_wrapper">
+              <img src="{% static 'MEDIA/images/insta_ad_02.png' %}" alt="" srcset="">
+            </div>
+    
+            <div class="product_context_wrapper">
+              <h2>Conjunto Renda</h2>
+              <p>Conjunto de lingerie em renda delicada, com acabamento premium<br>Disponivel vários tamanhos.</p>
+            </div>
+    
+            <div class="product_price_wrapper">
+              <h2>U$ 123.00</h2>
+              <button class="btn_add_to_cart">
+                <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="" srcset="">
+              </button>
+
+              <a class="btn_product_description" href="{% url 'product_details' %}">
+                Sobre
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+</body>
+</html>
