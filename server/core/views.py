@@ -7,7 +7,7 @@ def landing(request):
     return render(request, 'HOME.html', {'products': products})
 
 def lingerie_store(request):
-    return render(request, 'LINGERIE_STORE.html')
+    return render(request, 'lingerie_store.html')
 
 def product_details(request):
     return render(request, 'product_details.html')
