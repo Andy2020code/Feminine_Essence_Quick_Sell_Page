@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="{% static 'CSS/lingerie_store.css' %}">
 </head>
 <body>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18193604937');
+  </script>
 
   <div class="lingerie_store_nav_wrapper">
 
@@ -29,25 +38,27 @@
     <h2 class="page_title_01">Lingerie & Conjuntos</h2>
 
     <div class="page_filtering_tab_wrapper">
-      <button class="filtering_tab">
-        <span>Conjuntos</span>
-      </button>
-
-      <button class="filtering_tab">
-        <span>Sultiãns</span>
-      </button>
-
-      <button class="filtering_tab">
-        <span>Calcinhas</span>
-      </button>
-
-      <button class="filtering_tab">
-        <span>Bodies</span>
-      </button>
-
-      <button class="filtering_tab">
-        <span>Camisolas</span>
-      </button>
+      <div class="page_filtering_tab_scroller">
+        <button class="filtering_tab">
+          <span>Conjuntos</span>
+        </button>
+  
+        <button class="filtering_tab">
+          <span>Sultiãns</span>
+        </button>
+  
+        <button class="filtering_tab">
+          <span>Calcinhas</span>
+        </button>
+  
+        <button class="filtering_tab">
+          <span>Bodies</span>
+        </button>
+  
+        <button class="filtering_tab">
+          <span>Camisolas</span>
+        </button>
+      </div>
     </div>
     
   </div>

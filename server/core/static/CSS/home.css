@@ -191,14 +191,14 @@
 .category_card {
     width: 250px;
     height: 250px;
-    background: var(--background_color_01);
+    background: var(--background_color_02);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background 0.2s ease;
 }
 
 .category_card:hover {
-    background: var(--background_color_02);
+    background: var(--background_color_01);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
@@ -208,7 +208,7 @@
     font-weight: 600;
     font-style: italic;
     font-family: "Lato", sans-serif;
-    color: var(--text_color_03);
+    color: var(--text_color_01);
     text-align: center;
     text-transform: uppercase;
     line-height: 250px;
@@ -217,7 +217,7 @@
 }
 
 .category_card_title:hover {
-    color: var(--text_color_01);
+    color: var(--text_color_02);
 }
 
 .section_03 {
@@ -337,6 +337,21 @@
 .step_context_card p {
     font-size: 16px;
     font-weight: 200;
+}
+
+.extra_description_section_03 {
+    width: 100%;
+    height: auto;
+    margin: 10px 0 0 0;
+}
+
+.extra_description_section_03 h2 {
+    font-size: 22px;
+    font-weight: 400;
+    font-family: "Lato", sans-serif;
+    color: var(--text_color_01);
+    text-align: center;
+    line-height: 1;
 }
 
 .section_04 {
@@ -494,6 +509,10 @@
         text-align: center;
     }
 
+    .section_02_title_wrapper h2:first-child {
+        font-weight: 300;
+    }
+
     .section_02_title_wrapper h2:nth-child(2) {
         font-weight: 400;
         font-size: 42px;
@@ -505,7 +524,7 @@
     }
 
     .category_card {
-        width: 370px;
+        width: 300px;
         height: 80px;
     }
 
@@ -530,6 +549,11 @@
 
     .steps_context {
         gap: 10px;
+        margin: 0 0 10px 0;
+    }
+
+    .extra_description_section_03 {
+        margin: 10px 0 20px 0;
     }
     
     .step_context_card {
