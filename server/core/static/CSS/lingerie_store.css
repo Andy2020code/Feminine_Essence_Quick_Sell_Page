@@ -92,16 +92,15 @@
 .page_filtering_tab_wrapper {
     width: 100%;
     height: auto;
+    margin: 50px 0 0 0;
+}
+
+.page_filtering_tab_scroller {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    margin: 50px 0 0 0;
-}
-
-.page_filtering_tab_scroller {
-    display: none;
 }
 
 .page_filtering_tab_wrapper button {
@@ -128,6 +127,11 @@
     background: var(--background_color_01);
     color: var(--text_color_03);
     box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3), 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page_filtering_tab_wrapper button a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .products_wrapper {

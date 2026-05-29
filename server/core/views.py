@@ -1,13 +1,27 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .models import Product
+from .models import Product, Badge
 
 def landing(request):
     products = Product.objects.filter(is_active=True)
     return render(request, 'HOME.html', {'products': products})
 
 def lingerie_store(request):
-    return render(request, 'lingerie_store.html')
+    selected_badge = request.GET.get("badge")
+    contents = Product.objects.all().order_by("-created_at")
+    badges = Badge.objects.all()
 
-def product_details(request):
-    return render(request, 'product_details.html')
+    if selected_badge:
+        contents = contents.filter(badges__name=selected_badge)
+
+    return render(request, "lingerie_store.html", {
+        "badges": badges,
+        "selected_badge": selected_badge,
+        "contents": contents,
+    })
+
+def product_details(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    return render(request, "product_details.html", {
+        "product": product,
+    })

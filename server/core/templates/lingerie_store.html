@@ -39,77 +39,52 @@
 
     <div class="page_filtering_tab_wrapper">
       <div class="page_filtering_tab_scroller">
-        <button class="filtering_tab">
-          <span>Conjuntos</span>
-        </button>
-  
-        <button class="filtering_tab">
-          <span>Sultiãns</span>
-        </button>
-  
-        <button class="filtering_tab">
-          <span>Calcinhas</span>
-        </button>
-  
-        <button class="filtering_tab">
-          <span>Bodies</span>
-        </button>
-  
-        <button class="filtering_tab">
-          <span>Camisolas</span>
-        </button>
+
+        {% for badge in badges %}
+          <button>
+            <span>
+              <a href="{% url 'lingerie_store' %}?badge={{ badge.name }}"
+                class="{% if selected_badge == badge.name %}active{% endif %}">
+                {{badge.name}}
+              </a>
+            </span>
+          </button>
+        {% endfor %}
+
       </div>
     </div>
     
   </div>
 
-    <div class="products">
-        {% for product in products %}
-        <div class="card">
-          <div class="card-img">
-            {% if product.badge %}
-              <div class="badge">{{ product.badge }}</div>
-            {% endif %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:100%; height:100%; object-fit:cover;">
-          </div>
-          <div class="card-body">
-            <p class="card-name">{{ product.name }}</p>
-            <p class="card-desc">{{ product.description }}</p>
-            <div class="card-footer">
-              <span class="price">R$ {{ product.price }}</span>
-              <button class="btn_add_to_cart">
-                <img src="{% static 'MEDIA/images/icons/cart_icon.png' %}" alt="" srcset="">
-              </button>
-              <button class="btn-buy">Comprar</button>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-    
-        <div class="products_wrapper">
-          <div class="product_card_wrapper">
+  <div class="products">
+    <div class="products_wrapper">
+      {% for item in contents %}
+        <div class="product_card_wrapper">
+          {% if item.image %}
             <div class="product_card_media_wrapper">
-              <img src="{% static 'MEDIA/images/insta_ad_02.png' %}" alt="" srcset="">
+              <img src="{{ item.image.url }}" alt="{{ item.title }}">
             </div>
-    
-            <div class="product_context_wrapper">
-              <h2>Conjunto Renda</h2>
-              <p>Conjunto de lingerie em renda delicada, com acabamento premium<br>Disponivel vários tamanhos.</p>
-            </div>
-    
-            <div class="product_price_wrapper">
-              <h2>U$ 123.00</h2>
-              <button class="btn_add_to_cart">
-                <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="" srcset="">
-              </button>
+          {% endif %}
+  
+          <div class="product_context_wrapper">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.description }}</p>
+          </div>
+  
+          <div class="product_price_wrapper">
+            <h2>${{ item.price }}</h2>
+            <button class="btn_add_to_cart">
+              <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="add to cart icon">
+            </button>
 
-              <a class="btn_product_description" href="{% url 'product_details' %}">
-                Sobre
-              </a>
-            </div>
+            <a class="btn_product_description" href="{% url 'product_details' item.id %}">
+              Sobre
+            </a>
           </div>
         </div>
-      </div>
+      {% endfor %}
+    </div>
+  </div>
     
 </body>
 </html>

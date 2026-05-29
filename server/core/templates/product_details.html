@@ -34,18 +34,20 @@
     </div>
 
     <div class="product_details_wrapper">
-        <div class="product_photo_wrapper">
-            <img src="{% static 'MEDIA/images/product_detail/insta_ad_02.png' %}" alt="" srcset="">
-        </div>
+        {% if product.image %}
+            <div class="product_photo_wrapper">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </div>
+        {% endif %}
 
         <div class="product_details_buy_wrapper">
-            <h2 class="product_detail_title">Product Title</h2>
-            <p class="product_detail_description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, voluptate.</p>
-            <p class="product_detail_price">R$ 199,99</p>
+            <h2 class="product_detail_title">{{ product.name }}</h2>
+            <p class="product_detail_description">{{ product.description }}</p>
+            <p class="product_detail_price">{{ product.price }}</p>
             <div class="product_detail_buy_button_wrapper">
                 <button>Comprar Agora</button>
                 <button>
-                    <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="" srcset="">
+                    <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
                 </button>
             </div>
         </div>
