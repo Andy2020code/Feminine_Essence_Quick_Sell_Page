@@ -26,10 +26,10 @@ SECRET_KEY = 'django-insecure-7huefj@y7bjo)8rprz=aby4hx830z*a8o5a!@l5sb_im)$2sh^
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    "https://feminineessencestore.com",
-    "https://www.feminineessencestore.com",
+    "127.0.0.1",
+    "localhost",
+    "feminineessencestore.com",
+    "www.feminineessencestore.com",
 ]
 
 
