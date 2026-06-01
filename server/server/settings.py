@@ -28,8 +28,15 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    'feminineessencestore.com',
-    'www.feminineessencestore.com'
+    "https://feminineessencestore.com",
+    "https://www.feminineessencestore.com",
+]
+
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://feminineessencestore.com",
+    "https://www.feminineessencestore.com",
 ]
 
 
