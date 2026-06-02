@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Product, Badge
+import time
 
 def landing(request):
     products = Product.objects.filter(is_active=True)
@@ -18,6 +19,7 @@ def lingerie_store(request):
         "badges": badges,
         "selected_badge": selected_badge,
         "contents": contents,
+        "css_version": int(time.time()),
     })
 
 def product_details(request, product_id):
