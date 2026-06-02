@@ -7,6 +7,9 @@ def landing(request):
     products = Product.objects.filter(is_active=True)
     return render(request, 'HOME.html', {'products': products})
 
+def store_details(request):
+    return render(request, 'store_details.html')
+
 def lingerie_store(request):
     selected_badge = request.GET.get("badge")
     contents = Product.objects.all().order_by("-created_at")
@@ -27,3 +30,6 @@ def product_details(request, product_id):
     return render(request, "product_details.html", {
         "product": product,
     })
+
+def contact_us(request):
+    return render(request, 'contact_us.html')

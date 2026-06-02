@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'CSS/contact_us.css' %}">
+</head>
+<body>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'AW-18193604937');
+    </script>
+
+    <div class="lingerie_store_nav_wrapper">
+        <h2 class="logo_text">Feminine Essence</h2>
+        <ul class="nav_links">
+            <li><a href="{% url 'landing' %}">Home</a></li>
+            <li><a href="{% url 'lingerie_store' %}">Loja</a></li>
+            <li><a href="{% url 'store_details' %}">Sobre</a></li>
+            <li><a href="{% url 'contact_us' %}">Contato</a></li>
+        </ul>
+    </div>
+
+    <div class="contact_us_wrapper">
+        <h2>Liga pr'agente!</h2>
+
+        <div class="call_phone_wrapper">
+            <img src="{% static 'MEDIA/images/icons/call.png' %}" alt="call icon">
+            <h2>
+                <a href="+19789842920">(978) 984-2920</a>
+            </h2>
+        </div>
+
+        <div class="apps_tag_wrapper">
+            <h2>Contato Via:</h2>
+
+            <div class="whatsapp_wrapper">
+                
+                <h2>
+                    <a href="https://wa.me/19789842920" target="_blank">
+                        <img src="{% static 'MEDIA/images/icons/whatsapp.png' %}" alt="whatsapp icon">
+                        
+                    </a>
+                </h2>
+            </div>
+        </div>
+    </div>
+
+</body>

@@ -1,0 +1,138 @@
+:root {
+    --header_color: #591615;
+    --header_strip_color: #000000;
+
+    --text_color_01: #ebd7c6;
+    --text_color_02: #000000;
+    --text_color_03: #591615;
+
+    --border_color_01: #ebd7c6;
+    --border_color_02: #000000;
+
+    --background_color_01: #edede9;
+    --background_color_02: #591615;
+    --background_color_03: #000000;
+}
+
+#body {
+    width: 100%;
+    height: auto;
+}
+
+.lingerie_store_nav_wrapper {
+    width: 100%;
+    height: 60px;
+    background: var(--header_color);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo_text {
+    font-size: 36px;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: var(--text_color_01);
+    margin: 0 0 0 50px;
+}
+
+.nav_links {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+    margin: 0 50px 0 0;
+}
+
+.nav_links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav_links li {
+    display: inline;
+}
+
+.nav_links a {
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text_color_01);
+    text-decoration: none;
+}
+
+.contact_us_wrapper {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px 0 0 0;
+}
+
+.contact_us_wrapper h2{
+    font-size: 48px;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    text-transform: uppercase;
+    color: var(--text_color_03);
+    margin: 0 0 0 0;
+}
+
+.call_phone_wrapper,
+.apps_tag_wrapper {
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 50px 0 0 0;
+}
+
+.call_phone_wrapper img,
+.apps_tag_wrapper img {
+    width: 50px;
+    height: 50px;
+    margin: 0 20px 0 0;
+}
+
+.call_phone_wrapper h2,
+.apps_tag_wrapper h2 {
+    font-size: 28px;
+    font-weight: 300;
+}
+
+.call_phone_wrapper a,
+.apps_tag_wrapper a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.whatsapp_wrapper {
+    width: 250px;
+    height: 250px;
+}
+
+@media screen and (max-width: 450px) {
+    .logo_text {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1.0;
+        margin: 0 0 0 10px;
+    }
+
+    .nav_links {
+        gap: 15px;
+        margin: 0 15px 0 0;
+    }
+    
+    .nav_links a {
+        font-size: 16px;
+        font-weight: 300;
+    }
+}
