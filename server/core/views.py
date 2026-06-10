@@ -2,7 +2,7 @@ import os
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
-from .models import Product, CosmeticProduct, Badge
+from .models import Product, CosmeticProduct, Badge, CosmeticBadge
 from square import Square
 from square.environment import SquareEnvironment
 import time
@@ -33,7 +33,7 @@ def lingerie_store(request):
 def cosmetic_store(request):
     selected_badge = request.GET.get("badge")
     contents = CosmeticProduct.objects.all().order_by("-created_at")
-    badges = Badge.objects.all()
+    badges = CosmeticBadge.objects.all()
 
     if selected_badge:
         contents = contents.filter(badges__name=selected_badge)

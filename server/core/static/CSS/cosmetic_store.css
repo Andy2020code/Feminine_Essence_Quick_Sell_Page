@@ -134,6 +134,14 @@
     color: inherit;
 }
 
+.products {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .products_wrapper {
     width: 95%;
     height: auto;

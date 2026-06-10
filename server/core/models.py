@@ -21,6 +21,13 @@ class Product(models.Model):
         return self.name
     
 
+class CosmeticBadge(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class CosmeticProduct(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=200)
