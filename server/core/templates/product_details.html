@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Detalhes da peça</title>
     {% load static %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,9 +45,13 @@
             <p class="product_detail_description">{{ product.description }}</p>
             <p class="product_detail_price">{{ product.price }}</p>
             <div class="product_detail_buy_button_wrapper">
-                <button>Comprar Agora</button>
                 <button>
-                    <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
+                    <a href="{% url 'square_checkout' %}">
+                        Comprar Agora
+                    </a>
+                </button>
+                <button>
+                        <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
                 </button>
             </div>
         </div>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosméticos</title>
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'CSS/cosmetic_store.css' %}?v={{ css_version }}">
+</head>
+<body>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18193604937');
+  </script>
+
+  <div class="lingerie_store_nav_wrapper">
+
+    <h2 class="logo_text">Feminine Essence</h2>
+
+    <ul class="nav_links">
+      <li><a href="{% url 'landing' %}">Home</a></li>
+      <li><a href="{% url 'lingerie_store' %}">Loja</a></li>
+      <li><a href="{% url 'store_details' %}">Sobre</a></li>
+      <li><a href="{% url 'contact_us' %}">Contato</a></li>
+    </ul>
+  </div>
+
+  <div class="page_title_wrapper">
+    <h2 class="page_title">Coleção 2026</h2>
+    <h2 class="page_title_01">Cosméticos e Mais...</h2>
+
+    <div class="page_filtering_tab_wrapper">
+      <div class="page_filtering_tab_scroller">
+
+        {% for badge in badges %}
+          <button>
+            <span>
+              <a href="{% url 'cosmetic_store' %}?badge={{ badge.name }}"
+                class="{% if selected_badge == badge.name %}active{% endif %}">
+                {{badge.name}}
+              </a>
+            </span>
+          </button>
+        {% endfor %}
+
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="products">
+    <div class="products_wrapper">
+      {% for item in contents %}
+        <div class="product_card_wrapper">
+          {% if item.image %}
+            <div class="product_card_media_wrapper">
+              <img src="{{ item.image.url }}" alt="{{ item.title }}">
+            </div>
+          {% endif %}
+  
+          <div class="product_context_wrapper">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.description }}</p>
+          </div>
+  
+          <div class="product_price_wrapper">
+            <h2>${{ item.price }}</h2>
+            <button class="btn_add_to_cart">
+              <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="add to cart icon">
+            </button>
+
+            <a class="btn_product_description" href="{% url 'cosmetic_product_details' item.id %}">
+              Sobre
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+    
+</body>
+</html>
