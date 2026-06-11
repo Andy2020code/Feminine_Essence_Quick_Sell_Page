@@ -46,7 +46,7 @@
             <p class="product_detail_price">{{ product.price }}</p>
             <div class="product_detail_buy_button_wrapper">
                 <button>
-                    <a href="{% url 'square_checkout' %}">
+                    <a href="{% url 'square_checkout' 'lingerie' product.id %}">
                         Comprar Agora
                     </a>
                 </button>

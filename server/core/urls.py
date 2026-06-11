@@ -9,5 +9,7 @@ urlpatterns = [
     path('cosmetic/<int:product_id>/', views.cosmetic_product_details, name='cosmetic_product_details'),
     path('store_details/', views.store_details, name='store_details'),
     path('contact_us/', views.contact_us, name='contact_us'),
-    path("checkout/", views.square_checkout, name="square_checkout"),
+    path("checkout/<str:product_type>/<int:product_id>/", views.square_checkout, name="square_checkout"),
+    path('order_confirmation/<int:order_id>/', views.order_confirmation, name='order_confirmation'),
+    path("square/webhook/", views.square_webhook, name="square_webhook"),
 ]

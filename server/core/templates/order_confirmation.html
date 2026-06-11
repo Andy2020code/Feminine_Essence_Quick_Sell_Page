@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmetic Details</title>
+    <title>Confirmado!</title>
     {% load static %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'CSS/cosmetic_product_details.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/order_confirmation.css' %}">
 </head>
 <body>
     <!-- Google tag (gtag.js) -->
@@ -32,29 +32,37 @@
           <li><a href="{% url 'contact_us' %}">Contato</a></li>
         </ul>
     </div>
+    
 
-    <div class="product_details_wrapper">
-        {% if product.image %}
-            <div class="product_photo_wrapper">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            </div>
+    <div class="order_confirmation_wrapper">
+        {% if order.status == "paid" %}
+            <img src="{% static 'MEDIA/images/icons/lotus_pink.png' %}" alt="pink lotus icon">
+            <h2 class="main_title">
+                Pedido Confirmado!
+            </h2>
+        
+            <p class="confirmation_message">
+                Obrigada por comprar conosco! Seu pedido foi recebido e está sendo processado. Você receberá um email de confirmação em breve.
+            </p>
+
+            <a href="{% url 'lingerie_store' %}">
+                Voltar para a Loja
+            </a>
+        {% elif order.status == "pending" %}
+            <h2>
+                Pagamento Pendente
+            </h2>
+            <p>
+                Ainda estamos aguardando a confirmação do seu pagamento.
+            </p>  
+        {% elif order.status == "cancelled" %}
+            <h2>
+                Order cancelled
+            </h2>
+            <p>
+                Esta ordem não pode ser completada.
+            </p> 
         {% endif %}
-
-        <div class="product_details_buy_wrapper">
-            <h2 class="product_detail_title">{{ product.name }}</h2>
-            <p class="product_detail_description">{{ product.description }}</p>
-            <p class="product_detail_price">{{ product.price }}</p>
-            <div class="product_detail_buy_button_wrapper">
-                <button>
-                    <a href="{% url 'square_checkout' 'cosmetic' product.id %}">
-                        Comprar Agora
-                    </a>
-                </button>
-                <button>
-                        <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
-                </button>
-            </div>
-        </div>
     </div>
+
 </body>
-</html>
