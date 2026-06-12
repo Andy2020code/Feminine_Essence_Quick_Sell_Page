@@ -1,10 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {% load static %}
+    <title>Store Info</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
@@ -21,15 +21,7 @@
         gtag('config', 'AW-18193604937');
     </script>
 
-    <div class="lingerie_store_nav_wrapper">
-        <h2 class="logo_text">Feminine Essence</h2>
-        <ul class="nav_links">
-            <li><a href="{% url 'landing' %}">Home</a></li>
-            <li><a href="{% url 'lingerie_store' %}">Loja</a></li>
-            <li><a href="{% url 'store_details' %}">Sobre</a></li>
-            <li><a href="{% url 'contact_us' %}">Contato</a></li>
-        </ul>
-    </div>
+    {% include 'partials/nav_bar.html' %}
 
     <div class="store_details_wrapper">
         <h2 class="store_details_title">Nossa Loja</h2>
@@ -47,4 +39,6 @@
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3311.3203073419118!2d-84.4792559!3d33.9071549!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f511a80bc14295%3A0xa3aa7bc407dbbca4!2s1820%20The%20Exchange%20SE%2C%20Atlanta%2C%20GA%2030339!5e0!3m2!1sen!2sus!4v1780407105548!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
+
+    {% include 'partials/footer.html' %}
 </body>

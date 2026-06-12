@@ -1,68 +1,59 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmado!</title>
-    {% load static %}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'CSS/order_confirmation.css' %}">
-</head>
-<body>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>All Set!</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'CSS/order_confirmation.css' %}">
+    </head>
+    <body>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-        gtag('config', 'AW-18193604937');
-    </script>
+            gtag('config', 'AW-18193604937');
+        </script>
 
-    <div class="lingerie_store_nav_wrapper">
+        {% include 'partials/nav_bar.html' %}
 
-        <h2 class="logo_text">Feminine Essence</h2>
-    
-        <ul class="nav_links">
-          <li><a href="{% url 'landing' %}">Home</a></li>
-          <li><a href="{% url 'lingerie_store' %}">Loja</a></li>
-          <li><a href="{% url 'store_details' %}">Store</a></li>
-          <li><a href="{% url 'contact_us' %}">Contato</a></li>
-        </ul>
-    </div>
-    
+        <div class="order_confirmation_wrapper">
+            {% if order.status == "paid" %}
+                <img src="{% static 'MEDIA/images/icons/lotus_pink.png' %}" alt="pink lotus icon">
+                <h2 class="main_title">
+                    Pedido Confirmado!
+                </h2>
+            
+                <p class="confirmation_message">
+                    Obrigada por comprar conosco! Seu pedido foi recebido e está sendo processado. Você receberá um email de confirmação em breve.
+                </p>
 
-    <div class="order_confirmation_wrapper">
-        {% if order.status == "paid" %}
-            <img src="{% static 'MEDIA/images/icons/lotus_pink.png' %}" alt="pink lotus icon">
-            <h2 class="main_title">
-                Pedido Confirmado!
-            </h2>
-        
-            <p class="confirmation_message">
-                Obrigada por comprar conosco! Seu pedido foi recebido e está sendo processado. Você receberá um email de confirmação em breve.
-            </p>
+                <a href="{% url 'lingerie_store' %}">
+                    Voltar para a Loja
+                </a>
+            {% elif order.status == "pending" %}
+                <h2>
+                    Pagamento Pendente
+                </h2>
+                <p>
+                    Ainda estamos aguardando a confirmação do seu pagamento.
+                </p>  
+            {% elif order.status == "cancelled" %}
+                <h2>
+                    Order cancelled
+                </h2>
+                <p>
+                    Esta ordem não pode ser completada.
+                </p> 
+            {% endif %}
+        </div>
 
-            <a href="{% url 'lingerie_store' %}">
-                Voltar para a Loja
-            </a>
-        {% elif order.status == "pending" %}
-            <h2>
-                Pagamento Pendente
-            </h2>
-            <p>
-                Ainda estamos aguardando a confirmação do seu pagamento.
-            </p>  
-        {% elif order.status == "cancelled" %}
-            <h2>
-                Order cancelled
-            </h2>
-            <p>
-                Esta ordem não pode ser completada.
-            </p> 
-        {% endif %}
-    </div>
-
-</body>
+        {% include 'partials/footer.html' %}
+    </body>
+</html>

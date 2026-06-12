@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'CSS/home.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/home.css' %}?v={{ css_version }}">
 </head>
 <body>
   <!-- Google tag (gtag.js) -->
@@ -24,11 +24,11 @@
   <section class="section_01">
     <div class="top_header_wrapper">
       <div class="logo_text_wrapper">
-        <h2 class="logo_text">
+        <h2>
           Feminine
         </h2>
   
-        <h2 class="logo_text_02">
+        <h2>
           Essence
         </h2>
       </div>
@@ -64,34 +64,28 @@
     </div>
 
     <div class="product_category_wrapper">
-      <div class="category_card" onclick="window.location.href='{% url 'lingerie_store' %}'">
-        <h2 class="category_card_title">
+      <button class="category_card" onclick="window.location.href='{% url 'lingerie_store' %}'">
           Lingerie
-        </h2>
-      </div>
+      </button>
 
-      <div class="category_card" onclick="window.location.href='{% url 'cosmetic_store' %}'">
-        <h2 class="category_card_title">
+      <button class="category_card" onclick="window.location.href='{% url 'cosmetic_store' %}'">
           Cosméticos
-        </h2>
+      </button>
     </div>
   </section>
 
   <section class="section_03">
     <div class="section_03_title_wrapper">
-      <h1>Como Funciona</h1>
+      <h2>Como Funciona</h2>
       <h2>3 Passos Simples</h2>
     </div>
 
-    <div class="section_03_context_wrapper_01">
-
-      <div class="steps_design">
-        <div class="step_number">1</div>
-        <div class="step_devider"></div>
-        <div class="step_number">2</div>
-        <div class="step_devider"></div>
-        <div class="step_number">3</div>
-      </div>
+    <div class="steps_design">
+      <h2>1</h2>
+      <div class="step_devider"></div>
+      <h2>2</h2>
+      <div class="step_devider"></div>
+      <h2>3</h2>
     </div>
 
     <div class="steps_context">
@@ -117,29 +111,22 @@
   </section>
 
   <section class="section_04">
-    <div class="store_disclaimer_wrapper">
-      <div class="section_04_icon_01">
-        <img src="{% static 'MEDIA/svgs/guarantee.png' %}" alt="Satisfaction Guaranteed Icon" srcset="">
-      </div>
-      <h2>Satisfação Garantida</h2>
-      <p></p>
+    <div class="section_04_icon_01">
+      <img src="{% static 'MEDIA/svgs/guarantee.png' %}" alt="Satisfaction Guaranteed Icon" srcset="">
     </div>
+
+    <h2>Satisfação Garantida</h2>
   </section>
 
   <section class="section_05">
-    <div class="store_disclaimer_wrapper_02">
-      <h2>Você merece<br>se sentir assim.</h2>
-      <p>Frete grátis em compras acima de U$ 100.00</p>
-      <button class="buy_landing_page_btn">
-        Quero Comprar
-      </button>
-    </div>
+    <h2>Você merece<br>se sentir assim</h2>
+    <p>Frete grátis em compras acima de U$ 100.00</p>
+    <button class="buy_landing_page_btn" onclick="window.location.href='{% url 'lingerie_store' %}'">
+      Quero Comprar
+    </button>
   </section>
 
-  <section class="section_06">
-    <h2>2026 Feminine Essence </h2>
-    <p>Todos os Direitos Reservados.</p>
-  </section>
+  {% include 'partials/footer.html' %}
     
 </body>
 </html>

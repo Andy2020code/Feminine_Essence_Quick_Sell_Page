@@ -1,60 +1,52 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmetic Details</title>
-    {% load static %}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'CSS/cosmetic_product_details.css' %}">
-</head>
-<body>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cosmetic Details</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'CSS/cosmetic_product_details.css' %}">
+    </head>
+    <body>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-        gtag('config', 'AW-18193604937');
-    </script>
+            gtag('config', 'AW-18193604937');
+        </script>
 
-    <div class="lingerie_store_nav_wrapper">
+        {% include 'partials/nav_bar.html' %}
 
-        <h2 class="logo_text">Feminine Essence</h2>
-    
-        <ul class="nav_links">
-          <li><a href="{% url 'landing' %}">Home</a></li>
-          <li><a href="{% url 'lingerie_store' %}">Loja</a></li>
-          <li><a href="{% url 'store_details' %}">Store</a></li>
-          <li><a href="{% url 'contact_us' %}">Contato</a></li>
-        </ul>
-    </div>
+        <div class="product_details_wrapper">
+            {% if product.image %}
+                <div class="product_photo_wrapper">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                </div>
+            {% endif %}
 
-    <div class="product_details_wrapper">
-        {% if product.image %}
-            <div class="product_photo_wrapper">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            </div>
-        {% endif %}
-
-        <div class="product_details_buy_wrapper">
-            <h2 class="product_detail_title">{{ product.name }}</h2>
-            <p class="product_detail_description">{{ product.description }}</p>
-            <p class="product_detail_price">{{ product.price }}</p>
-            <div class="product_detail_buy_button_wrapper">
-                <button>
-                    <a href="{% url 'square_checkout' 'cosmetic' product.id %}">
-                        Comprar Agora
-                    </a>
-                </button>
-                <button>
-                        <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
-                </button>
+            <div class="product_details_buy_wrapper">
+                <h2 class="product_detail_title">{{ product.name }}</h2>
+                <p class="product_detail_description">{{ product.description }}</p>
+                <p class="product_detail_price">{{ product.price }}</p>
+                <div class="product_detail_buy_button_wrapper">
+                    <button>
+                        <a href="{% url 'square_checkout' 'cosmetic' product.id %}">
+                            Comprar Agora
+                        </a>
+                    </button>
+                    <button>
+                            <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</body>
+
+        {% include 'partials/nav_bar.html' %}
+    </body>
 </html>
