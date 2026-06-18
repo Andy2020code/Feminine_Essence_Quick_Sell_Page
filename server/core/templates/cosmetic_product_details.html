@@ -30,23 +30,38 @@
                 </div>
             {% endif %}
 
-            <div class="product_details_buy_wrapper">
-                <h2 class="product_detail_title">{{ product.name }}</h2>
-                <p class="product_detail_description">{{ product.description }}</p>
-                <p class="product_detail_price">{{ product.price }}</p>
-                <div class="product_detail_buy_button_wrapper">
-                    <button>
-                        <a href="{% url 'square_checkout' 'cosmetic' product.id %}">
+            <div class="devider_01"></div>
+
+            <form method="POST" action="{% url 'square_checkout' 'cosmetic' product.id %}">
+
+                {% csrf_token %}
+                <div class="product_details_buy_wrapper">
+                    <h2>{{ product.name }}</h2>
+                    <h2>Detalhes:</h2>
+                    <p>{{ product.description }}</p>
+
+                    <div class="product_quantity_wrapper">
+                        <label>Quantidade</label>
+                        <select name="quantity">
+                            {% for i in "123456789"|make_list %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <p>{{ product.price }}</p>
+                    <div class="product_detail_buy_button_wrapper">
+                        <button type="submit">
                             Comprar Agora
-                        </a>
-                    </button>
-                    <button>
-                            <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
-                    </button>
+                        </button>
+                        <button>
+                                <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
 
-        {% include 'partials/nav_bar.html' %}
+        {% include 'partials/footer.html' %}
     </body>
 </html>

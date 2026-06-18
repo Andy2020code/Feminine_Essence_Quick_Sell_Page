@@ -12,6 +12,9 @@
     --background_color_01: #edede9;
     --background_color_02: #591615;
     --background_color_03: #000000;
+
+    --whatsapp_color: #25D366;
+    --instagram_color: #E1306C;
 }
 
 #body {
@@ -67,9 +70,29 @@
     text-decoration: none;
 }
 
-.whatsapp_wrapper {
-    width: 250px;
-    height: 250px;
+.whatsapp_wrapper,
+.insta_wrapper {
+    width: 100px;
+    height: 100px;
+    background: var(--whatsapp_color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border_color_02);
+    border-radius: 70px;
+    margin: 0 0 0 20px;
+}
+
+.whatsapp_wrapper img,
+.insta_wrapper img {
+    width: 50px;
+    height: 50px;
+    margin: 5px 0 0 0;
+}
+
+.insta_wrapper {
+    background: var(--instagram_color);
 }
 
 @media screen and (max-width: 450px) {

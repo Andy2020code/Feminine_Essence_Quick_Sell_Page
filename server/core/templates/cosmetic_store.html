@@ -29,16 +29,16 @@
 
       <div class="page_filtering_tab_wrapper">
         <div class="page_filtering_tab_scroller">
+          <a href="{% url 'cosmetic_store' %}"
+              class="clear_all_filter_button {% if not selected_badge %}active{% endif %}">
+              Todos
+          </a>
 
           {% for badge in badges %}
-            <button>
-              <span>
-                <a href="{% url 'cosmetic_store' %}?badge={{ badge.name }}"
-                  class="{% if selected_badge == badge.name %}active{% endif %}">
-                  {{badge.name}}
-                </a>
-              </span>
-            </button>
+            <a href="{% url 'cosmetic_store' %}?badge={{ badge.name }}"
+              class="{% if selected_badge == badge.name %}active{% endif %}">
+              {{badge.name}}
+            </a>
           {% endfor %}
 
         </div>

@@ -8,10 +8,12 @@ from django.db import transaction
 from .models import Product, CosmeticProduct, Badge, CosmeticBadge, Order
 from square import Square
 from square.environment import SquareEnvironment
+from functools import lru_cache
 from decimal import Decimal
 import time
 import uuid
 import json
+
 import base64
 import hmac
 import hashlib
@@ -31,6 +33,8 @@ def lingerie_store(request):
 
     if selected_badge:
         contents = contents.filter(badges__name=selected_badge)
+    else:
+        contents = Product.objects.all()
 
     return render(request, "lingerie_store.html", {
         "badges": badges,
@@ -69,8 +73,29 @@ def cosmetic_product_details(request, product_id):
 def contact_us(request):
     return render(request, 'contact_us.html')
 
+@lru_cache
+def get_square_client():
+
+    env_map = {
+        "sandbox": SquareEnvironment.SANDBOX,
+        "production": SquareEnvironment.PRODUCTION,
+    }
+
+    return Square(
+        token=settings.SQUARE_ACCESS_TOKEN,
+        environment=env_map.get(
+            settings.SQUARE_ENVIRONMENT,
+            SquareEnvironment.SANDBOX
+        )
+    )
+
 @transaction.atomic
 def square_checkout(request, product_type, product_id):
+
+    try:
+        item_quantity = int(request.POST.get("quantity", 1))
+    except (TypeError, ValueError):
+        item_quantity = 1
 
     if product_type == "lingerie":
         product = get_object_or_404(Product.objects.select_for_update(), id=product_id)
@@ -78,22 +103,20 @@ def square_checkout(request, product_type, product_id):
         product = get_object_or_404(CosmeticProduct.objects.select_for_update(), id=product_id)
     else:
         return JsonResponse({"error": "Invalid product type"}, status=400)
-    if product.stock <= 0:
-        return JsonResponse({"error": "This item is out of stock"}, status=400)
+    if product.stock < item_quantity:
+        return JsonResponse({"error": "Not enough stock"}, status=400)
     
     order = Order.objects.create(
         product_type=product_type,
         product_id=product.id,
         product_name=product.name,
-        quantity=1,
+        quantity=item_quantity,
         amount=product.price,
         status="pending",
     )
 
-    client = Square(
-        token=settings.SQUARE_ACCESS_TOKEN,
-        environment=SquareEnvironment.PRODUCTION
-    )
+    client = get_square_client()
+
     try:
         result = client.checkout.payment_links.create(
             idempotency_key=str(uuid.uuid4()),
@@ -103,7 +126,7 @@ def square_checkout(request, product_type, product_id):
 
                     {
                         "name": product.name,
-                        "quantity": "1",
+                        "quantity": str(item_quantity),
                         "base_price_money": {
                             "amount": int(product.price * Decimal("100")),
                             "currency": "USD"

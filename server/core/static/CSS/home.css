@@ -27,6 +27,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
     margin: 0;
 }
 
