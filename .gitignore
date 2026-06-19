@@ -1,5 +1,33 @@
-.env
-venv/
+# Python
 __pycache__/
-db.sqlite3
 *.pyc
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+local_settings.py
+
+# Database
+*.sqlite3
+server/db.sqlite3
+*.dump
+*.sql
+
+# Media
+server/media/
+
+# macOS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+#virtualEnv
+venv/
+env/
+.venv/
+.env
+
+#Docker
+docker-compose.override.yml
+*.env.local
