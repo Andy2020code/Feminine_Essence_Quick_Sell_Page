@@ -256,8 +256,10 @@
         gap: 20px;
     }
     
-    .page_filtering_tab_wrapper button {
-        width: 150px;
+    .page_filtering_tab_wrapper a:nth-child(1) {
+        margin: 0 0 0 20px;
     }
+
+
     
 }

@@ -63,10 +63,6 @@
     
             <div class="product_price_wrapper">
               <h2>${{ item.price }}</h2>
-              <button class="btn_add_to_cart">
-                <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="add to cart icon">
-              </button>
-
               <a class="btn_product_description" href="{% url 'cosmetic_product_details' item.id %}">
                 Sobre
               </a>

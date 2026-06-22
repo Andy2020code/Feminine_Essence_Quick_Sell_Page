@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'CSS/user_login.css' %}">
+    </head>
+    <body>
+
+        {% include 'partials/nav_bar.html' %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="login_wrapper">
+                <div class="user_login_card_wrapper">
+                    <h2>Login</h2>
+
+                    <div class="info_fields_wrapper">
+                        <div class="username_wrapper">
+                            <label for="username:">Usuário</label>
+                            <input type="username" name="username" placeholder="Digite seu usuário">
+                        </div>
+        
+                        <div class="password_wrapper">
+                            <label for="password:">Senha</label>
+                            <input type="password" name="password" placeholder="Digite a senha">
+                        </div>
+
+                        {% if error %}
+                            <p class="login_error_msg">{{ error }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="keep_logged_in">
+                        <label for="keep_session_alive">Manter conta ativa?</label>
+                        <input type="checkbox">
+                    </div>
+
+                    <button type="submit">
+                        ENTRAR
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        {% include 'partials/footer.html' %}
+
+    </body>
+</html>

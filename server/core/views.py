@@ -1,23 +1,64 @@
 import os
-from dotenv import load_dotenv
-from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse, JsonResponse
-from django.conf import settings
-from django.db import transaction
 from .models import Product, CosmeticProduct, Badge, CosmeticBadge, Order
-from square import Square
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse, JsonResponse
 from square.environment import SquareEnvironment
+from django.contrib.auth import logout
+from django.db import transaction
+from django.conf import settings
 from functools import lru_cache
+from dotenv import load_dotenv
 from decimal import Decimal
+from square import Square
+from .cart import CartService
+import hashlib
+import base64
 import time
 import uuid
 import json
-
-import base64
 import hmac
-import hashlib
 load_dotenv()
+
+def user_signup(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("user_login")
+        else:
+            print(form.errors)
+    else:
+        form = UserCreationForm()
+    return render(request, "user_signup.html", {"form": form})
+
+def user_login(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
+
+        if user is not None:
+            login(request, user)
+            return redirect("landing")
+
+        return render(request, "user_login.html", {
+            "error": "Invalid username or password."
+        })
+    return render(request, 'user_login.html')
+
+def user_logout(request):
+
+    logout(request)
+    return redirect("user_login")
 
 def landing(request):
     products = Product.objects.filter(is_active=True)
@@ -60,14 +101,20 @@ def cosmetic_store(request):
 
 def product_details(request, product_id):
     product = get_object_or_404(Product, id=product_id)
+    product_type = product.CART_TYPE
     return render(request, "product_details.html", {
         "product": product,
+        "product_type": product_type,
+        "qty_range": range(1, 10),
     })
 
 def cosmetic_product_details(request, product_id):
     product = get_object_or_404(CosmeticProduct, id=product_id)
+    product_type = product.CART_TYPE
     return render(request, "cosmetic_product_details.html", {
         "product": product,
+        "product_type": product_type,
+        "qty_range": range(1, 10),
     })
 
 def contact_us(request):
@@ -89,6 +136,43 @@ def get_square_client():
         )
     )
 
+@login_required(login_url="user_login")
+def cart_add(request, product_type, product_id):
+    model = {
+        "Product": Product,
+        "CosmeticProduct": CosmeticProduct,
+        "lingerie": Product,
+    }.get(product_type)
+
+    obj = get_object_or_404(model, id=product_id)
+    cart = CartService(request)
+    cart.add(obj)
+
+    return redirect("cart_detail")
+
+@login_required(login_url="user_login")
+def cart_remove(request, product_type, product_id):
+    model = {
+        "Product": Product,
+        "CosmeticProduct": CosmeticProduct,
+        "lingerie": Product,
+    }.get(product_type)
+
+    obj = get_object_or_404(model, id=product_id)
+    cart = CartService(request)
+    cart.remove(obj)
+
+    return redirect("cart_detail")
+
+@login_required(login_url="user_login")
+def cart_detail(request):
+    cart = CartService(request)
+
+    return render(request, "cart.html", {
+        "items": cart.items(),
+        "total": cart.total()
+    })
+
 @transaction.atomic
 def square_checkout(request, product_type, product_id):
 
@@ -98,21 +182,30 @@ def square_checkout(request, product_type, product_id):
         item_quantity = 1
 
     if product_type == "lingerie":
-        product = get_object_or_404(Product.objects.select_for_update(), id=product_id)
+        product = get_object_or_404(
+            Product.objects.select_for_update(),
+            id=product_id
+        )
     elif product_type == "service":
-        product = get_object_or_404(CosmeticProduct.objects.select_for_update(), id=product_id)
+        product = get_object_or_404(
+            CosmeticProduct.objects.select_for_update(),
+            id=product_id
+        )
     else:
         return JsonResponse({"error": "Invalid product type"}, status=400)
+
+    # optional safety clamp
+    if item_quantity < 1:
+        item_quantity = 1
+
     if product.stock < item_quantity:
         return JsonResponse({"error": "Not enough stock"}, status=400)
-    
+
+    # create internal order
     order = Order.objects.create(
-        product_type=product_type,
-        product_id=product.id,
-        product_name=product.name,
-        quantity=item_quantity,
-        amount=product.price,
         status="pending",
+        total_amount=product.price * item_quantity,
+        user=request.user if request.user.is_authenticated else None,
     )
 
     client = get_square_client()
@@ -123,7 +216,6 @@ def square_checkout(request, product_type, product_id):
             order={
                 "location_id": settings.SQUARE_LOCATION_ID,
                 "line_items": [
-
                     {
                         "name": product.name,
                         "quantity": str(item_quantity),
@@ -140,13 +232,65 @@ def square_checkout(request, product_type, product_id):
                 "merchant_support_email": "orders@feminineessencestore.com",
             }
         )
+
         order.square_payment_link_id = result.payment_link.id
         order.square_order_id = result.payment_link.order_id
         order.save()
 
         return redirect(result.payment_link.url)
+
     except Exception as e:
         return JsonResponse({"error": str(e)}, status=400)
+    
+@transaction.atomic
+def cart_checkout(request):
+    cart = CartService(request)
+    items = cart.items()
+
+    if not items:
+        return JsonResponse({"error": "Cart is empty"}, status=400)
+
+    line_items = []
+
+    for row in items:
+        item = row["item"]
+        product = row["product"]
+
+        line_items.append({
+            "name": product.name,
+            "quantity": str(item.quantity),
+            "base_price_money": {
+                "amount": int(product.price * 100),
+                "currency": "USD"
+            }
+        })
+
+    # internal DB order (good)
+    order = Order.objects.create(
+        status="pending",
+        total_amount=cart.total(),
+        user=request.user if request.user.is_authenticated else None,
+    )
+
+    client = get_square_client()
+
+    result = client.checkout.payment_links.create(
+        idempotency_key=str(uuid.uuid4()),
+        order={
+            "location_id": settings.SQUARE_LOCATION_ID,
+            "line_items": line_items
+        },
+        checkout_options={
+            "redirect_url": f"https://feminineessencestore.com/order_confirmation/{order.id}/",
+            "ask_for_shipping_address": True,
+        }
+    )
+
+    order.square_payment_link_id = result.payment_link.id
+    order.square_order_id = result.payment_link.order_id
+    order.save()
+
+    return redirect(result.payment_link.url)
     
 @transaction.atomic
 def mark_order_paid(order):
@@ -170,10 +314,12 @@ def mark_order_paid(order):
     order.save()
     
 def order_confirmation(request, order_id):
-    order = get_object_or_404(Order, id=order_id)
-    return render(request, "order_confirmation.html", {
-        "order": order
-    })
+    order = Order.objects.get(id=order_id)
+
+    if order.status == "paid":
+        CartService(request).clear()
+
+    return render(request, "success.html", {"order": order})
 
 @csrf_exempt
 def square_webhook(request):

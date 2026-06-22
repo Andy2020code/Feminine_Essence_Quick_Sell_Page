@@ -41,9 +41,9 @@
                     <p>{{ product.description }}</p>
 
                     <div class="product_quantity_wrapper">
-                        <label>Quantidade</label>
+                        <label for="quantity">Quantidade</label>
                         <select name="quantity">
-                            {% for i in "123456789"|make_list %}
+                            {% for i in qty_range %}
                                 <option value="{{ i }}">{{ i }}</option>
                             {% endfor %}
                         </select>
@@ -54,9 +54,9 @@
                         <button type="submit">
                             Comprar Agora
                         </button>
-                        <button>
-                                <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
-                        </button>
+                        <a href="{% url 'cart_add' product_type product.id %}">
+                            <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
+                        </a>
                     </div>
                 </div>
             </form>
