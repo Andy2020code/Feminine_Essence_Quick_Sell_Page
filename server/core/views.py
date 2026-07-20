@@ -69,7 +69,7 @@ def store_details(request):
 
 def lingerie_store(request):
     selected_badge = request.GET.get("badge")
-    contents = Product.objects.all().order_by("-created_at")
+    contents = Product.objects.all().order_by("-created_at")[:10]
     badges = Badge.objects.all()
 
     if selected_badge:
@@ -86,7 +86,7 @@ def lingerie_store(request):
 
 def cosmetic_store(request):
     selected_badge = request.GET.get("badge")
-    contents = CosmeticProduct.objects.all().order_by("-created_at")
+    contents = CosmeticProduct.objects.all().order_by("-created_at")[:10]
     badges = CosmeticBadge.objects.all()
 
     if selected_badge:

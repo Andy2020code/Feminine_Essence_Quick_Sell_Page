@@ -38,12 +38,13 @@
     border-radius: 10px;
     overflow: hidden;
     margin: 0 0 0 70px;
+    text-align: center;
 }
 
 .product_photo_wrapper img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+    display: inline-block;
+    width: auto;
+    height: 100%;
 }
 
 .devider_01 {
