@@ -34,6 +34,7 @@
 
 .logo_text_wrapper {
     width: 100%;
+    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -68,24 +69,27 @@
     font-style: normal;
     line-height: 1.0;
     text-align: center;
-    color: var(--text_color_02);
-    margin: 0;
+    color: var(--text_color_01);
+    margin: 0 0 0 0;
 }
 
 .top_text_wrapper h2:nth-child(1){
-    font-size: 62px;
+    font-size: 32px;
     font-weight: 300;
+    color: var(--text_color_01);
+    margin: 0 0 20px 0;
 }
 
 .top_text_wrapper h2:nth-child(2) {
-    font-size: 100px;
+    font-size: 22px;
     font-weight: 400;
     font-style: italic;
-    letter-spacing: -2px;
+    letter-spacing: 1px;
+    margin: 10px 0 10px 0;
 }
 
 .top_text_wrapper h2:nth-child(3) {
-    font-size: 32px;
+    font-size: 22px;
     font-weight: 300;
 }
 
@@ -134,6 +138,55 @@
     gap: 0px;
     align-items: center;
     margin: 90px 0 0 0;
+}
+
+.intro_01_wrapper {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.intro_card {
+    width: 40%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 30px 0;
+}
+
+.intro_card img {
+    width: 150px;
+    height: auto;
+}
+
+.intro_card h2 {
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    color: var(--text_color_03);
+    text-align: center;
+    line-height: 1;
+    margin: 0;
+}
+
+.intro_card:nth-child(1) h2 {
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.intro_card:nth-child(2) h2 {
+    font-size: 18px;
+    font-weight: 300;
+    text-align: left;
+    line-height: 1.1;
 }
 
 .section_02_title_wrapper {
@@ -188,7 +241,7 @@
     background: var(--background_color_02);
     border: none;
     border-radius: 50px;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 600;
     font-style: italic;
     font-family: "Lato", sans-serif;
@@ -379,8 +432,7 @@
     margin: 50px 0 0 0;
 }
 
-.section_05 h2,
-.section_05 p {
+.section_05 h2 {
     font-family: "Lato", sans-serif;
     font-style: normal;
     color: var(--text_color_01);
@@ -393,11 +445,6 @@
     font-size: 54px;
     font-weight: 400;
     margin: 30px 0 0 0;
-}
-
-.section_05 p{
-    font-size: 18px;
-    font-weight: 300;
 }
 
 .section_05 button {
@@ -415,17 +462,24 @@
 }
 
 @media screen and (max-width: 450px) {
+    
     .top_header_wrapper {
-        border-radius: 10px;
+        height: 30vh;
+        padding: 0;
     }
 
-    .top_text_wrapper h2:nth-child(2) {
-        font-size: 80px;
+    .top_text_wrapper{
+        width: 80%;
+    }
+
+    .top_text_wrapper h2:nth-child(1) {
+        font-size: 22px;
         font-weight: 300;
     }
 
-    .top_text_wrapper h2:nth-child(3) {
-        margin: 10px 0 0 0;
+    .top_text_wrapper h2:nth-child(2) {
+        font-size: 22px;
+        font-weight: 300;
     }
 
     .header_bottom_strip {
@@ -449,8 +503,49 @@
         margin: 50px 0 0 0;
     }
 
+    .intro_card {
+        width: 90%;
+        flex-direction: row;
+        margin: 0 0 30px 0;
+    }
+
+    .intro_card img {
+        width: 150px;
+        height: auto;
+    }
+
+    .intro_card:nth-child(1) img {
+        width: 120px;
+        height: auto;
+    }
+
+    .intro_card h2 {
+        font-size: 18px;
+        font-family: "Lato", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+        color: var(--text_color_03);
+        text-align: center;
+
+        line-height: 1;
+        margin: 0;
+    }
+
+    .intro_card:nth-child(1) h2 {
+        font-size: 20px;
+        text-transform: uppercase;
+        text-align: right;
+    }
+
+    .intro_card:nth-child(2) h2 {
+        font-size: 18px;
+        font-weight: 300;
+        text-align: left;
+        line-height: 1.1;
+    }
+
     .section_02_title_wrapper {
-        margin: 0 0 70px 0;
+        margin: 0 0 30px 0;
     }
 
     .section_02_title_wrapper h2:first-child {
@@ -470,7 +565,7 @@
     .category_card {
         width: 350px;
         height: 70px;
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .section_03 {
