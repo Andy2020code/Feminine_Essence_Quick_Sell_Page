@@ -32,7 +32,7 @@
 
             <div class="devider_01"></div>
 
-            <form method="POST" action="{% url 'square_checkout' 'cosmetic' product.id %}">
+            <form method="POST" action="{% url 'square_checkout' 'CosmeticProduct' product.id %}">
 
                 {% csrf_token %}
                 <div class="product_details_buy_wrapper">
@@ -49,7 +49,7 @@
                         </select>
                     </div>
 
-                    <p>{{ product.price }}</p>
+                    <p>U${{ product.price }}</p>
                     <div class="product_detail_buy_button_wrapper">
                         <button type="submit">
                             Comprar Agora

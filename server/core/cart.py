@@ -1,3 +1,4 @@
+from decimal import Decimal
 from .models import Cart, CartItem, Product, CosmeticProduct
 
 MODEL_MAP = {
@@ -63,15 +64,24 @@ class CartService:
 
         return enriched
 
+    def get_subtotal(self):
+        return sum(item.price * item.quantity for item in self.cart.items.all())
+
+    def get_discount(self):
+        return Decimal("0.00")
+
+    def get_delivery_fee(self):
+        return Decimal("25.99")
+
+    def get_sales_tax(self):
+        return Decimal("5.99")
+
     def total(self):
-        total = 0
+        total = (
+            sum(item.price * item.quantity for item in self.cart.items.all())
+            + self.get_delivery_fee()
+            + self.get_sales_tax()
+            - self.get_discount()
+        )
 
-        for item in self.cart.items.all():
-            model = MODEL_MAP.get(item.product_type)
-            if not model:
-                continue
-
-            product = model.objects.get(id=item.product_id)
-            total += product.price * item.quantity
-
-        return total
+        return max(0, total)

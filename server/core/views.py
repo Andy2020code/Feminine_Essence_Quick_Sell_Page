@@ -21,6 +21,7 @@ import time
 import uuid
 import json
 import hmac
+from django.urls import reverse
 load_dotenv()
 
 def user_signup(request):
@@ -120,6 +121,9 @@ def cosmetic_product_details(request, product_id):
 def contact_us(request):
     return render(request, 'contact_us.html')
 
+def policy(request):
+    return render(request, 'partials/policy.html')
+
 @lru_cache
 def get_square_client():
 
@@ -169,8 +173,12 @@ def cart_detail(request):
     cart = CartService(request)
 
     return render(request, "cart.html", {
-        "items": cart.items(),
-        "total": cart.total()
+        'items': cart.items(),
+        'subtotal': cart.get_subtotal(),
+        'discount': cart.get_discount(),
+        'delivery': cart.get_delivery_fee(),
+        'tax': cart.get_sales_tax(),
+        'total': cart.total(),
     })
 
 @transaction.atomic
@@ -186,7 +194,7 @@ def square_checkout(request, product_type, product_id):
             Product.objects.select_for_update(),
             id=product_id
         )
-    elif product_type == "service":
+    elif product_type == "CosmeticProduct":
         product = get_object_or_404(
             CosmeticProduct.objects.select_for_update(),
             id=product_id
@@ -201,12 +209,72 @@ def square_checkout(request, product_type, product_id):
     if product.stock < item_quantity:
         return JsonResponse({"error": "Not enough stock"}, status=400)
 
+    cart_service = CartService(request)  # <-- instantiate with request
+
+    subtotal     = Decimal(str(cart_service.get_subtotal()))
+    discount     = Decimal(str(cart_service.get_discount()))
+    delivery_fee = Decimal(str(cart_service.get_delivery_fee()))
+    sales_tax    = Decimal(str(cart_service.get_sales_tax()))
+    
+    total_amount = subtotal - discount + delivery_fee + sales_tax
+
+    if total_amount < 0:
+        total_amount = Decimal("0.00")
+
     # create internal order
     order = Order.objects.create(
         status="pending",
-        total_amount=product.price * item_quantity,
+        total_amount=total_amount,
         user=request.user if request.user.is_authenticated else None,
     )
+
+    def to_cents(amount: Decimal) -> int:
+        return int((amount * Decimal("100")).quantize(Decimal("1")))
+
+    discount_part = {
+        "discounts": [
+            {
+                "uid": "discount-1",
+                "name": "Discontos",
+                "type": "FIXED_AMOUNT",
+                "amount_money": {
+                    "amount": to_cents(discount),
+                    "currency": "USD"
+                },
+                "scope": "ORDER"
+            }
+        ]
+    } if discount > 0 else {}
+
+    service_charges = []
+
+    if delivery_fee > 0:
+        service_charges.append({
+            "uid": "delivery-1",
+            "name": "Taxa de Entrega",
+            "amount_money": {
+                "amount": to_cents(delivery_fee),
+                "currency": "USD"
+            },
+            "calculation_phase": "TOTAL_PHASE"
+        })
+
+    if sales_tax > 0:
+        service_charges.append({
+            "uid": "sales-fee-1",
+            "name": "Taxa de Venda",
+            "amount_money": {
+                "amount": to_cents(sales_tax),
+                "currency": "USD"
+            },
+            "calculation_phase": "TOTAL_PHASE"
+        })
+
+    service_charge_part = {
+        "service_charges": service_charges
+    } if service_charges else {}
+
+    redirect_url = request.build_absolute_uri(reverse("order_confirmation", args=[order.id]))
 
     client = get_square_client()
 
@@ -220,14 +288,16 @@ def square_checkout(request, product_type, product_id):
                         "name": product.name,
                         "quantity": str(item_quantity),
                         "base_price_money": {
-                            "amount": int(product.price * Decimal("100")),
+                            "amount": to_cents(product.price),
                             "currency": "USD"
                         }
                     }
-                ]
+                ],
+                **discount_part,
+                **service_charge_part,
             },
             checkout_options={
-                "redirect_url": f"https://feminineessencestore.com/order_confirmation/{order.id}/",
+                "redirect_url": redirect_url,
                 "ask_for_shipping_address": True,
                 "merchant_support_email": "orders@feminineessencestore.com",
             }
@@ -265,6 +335,18 @@ def cart_checkout(request):
             }
         })
 
+    cart_service = CartService(request)  # <-- instantiate with request
+
+    subtotal     = Decimal(str(cart_service.get_subtotal()))
+    discount     = Decimal(str(cart_service.get_discount()))
+    delivery_fee = Decimal(str(cart_service.get_delivery_fee()))
+    sales_tax    = Decimal(str(cart_service.get_sales_tax()))
+    
+    total_amount = subtotal - discount + delivery_fee + sales_tax
+
+    if total_amount < 0:
+        total_amount = Decimal("0.00")
+
     # internal DB order (good)
     order = Order.objects.create(
         status="pending",
@@ -272,16 +354,66 @@ def cart_checkout(request):
         user=request.user if request.user.is_authenticated else None,
     )
 
+    def to_cents(amount: Decimal) -> int:
+        return int((amount * Decimal("100")).quantize(Decimal("1")))
+    
+    discount_part = {
+        "discounts": [
+            {
+                "uid": "discount-1",
+                "name": "Discontos",
+                "type": "FIXED_AMOUNT",
+                "amount_money": {
+                    "amount": to_cents(discount),
+                    "currency": "USD"
+                },
+                "scope": "ORDER"
+            }
+        ]
+    } if discount > 0 else {}
+    
+    service_charges = []
+    
+    if delivery_fee > 0:
+        service_charges.append({
+            "uid": "delivery-1",
+            "name": "Taxa de Entrega",
+            "amount_money": {
+                "amount": to_cents(delivery_fee),
+                "currency": "USD"
+            },
+            "calculation_phase": "TOTAL_PHASE"
+        })
+    
+    if sales_tax > 0:
+        service_charges.append({
+            "uid": "sales-fee-1",
+            "name": "Taxa de Venda",
+            "amount_money": {
+                "amount": to_cents(sales_tax),
+                "currency": "USD"
+            },
+            "calculation_phase": "TOTAL_PHASE"
+        })
+    
+    service_charge_part = {
+        "service_charges": service_charges
+    } if service_charges else {}
+
+    redirect_url = request.build_absolute_uri(reverse("order_confirmation", args=[order.id]))
+
     client = get_square_client()
 
     result = client.checkout.payment_links.create(
         idempotency_key=str(uuid.uuid4()),
         order={
             "location_id": settings.SQUARE_LOCATION_ID,
-            "line_items": line_items
+            "line_items": line_items,
+            **discount_part,
+            **service_charge_part,
         },
         checkout_options={
-            "redirect_url": f"https://feminineessencestore.com/order_confirmation/{order.id}/",
+            "redirect_url": redirect_url,
             "ask_for_shipping_address": True,
         }
     )
@@ -314,7 +446,7 @@ def mark_order_paid(order):
     order.save()
     
 def order_confirmation(request, order_id):
-    order = Order.objects.get(id=order_id)
+    order = get_object_or_404(Order, id=order_id)
 
     if order.status == "paid":
         CartService(request).clear()

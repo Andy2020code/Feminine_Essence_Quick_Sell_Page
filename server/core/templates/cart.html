@@ -80,10 +80,10 @@
                     </div>
 
                     <div class="charge_values">
-                        <h2>$100</h2>
-                        <h2>$0.00</h2>
-                        <h2>$25.00</h2>
-                        <h2>$5.00</h2>
+                        <h2>${{ subtotal|floatformat:2 }}</h2>
+                        <h2>${{ discount|floatformat:2 }}</h2>
+                        <h2>${{ delivery|floatformat:2 }}</h2>
+                        <h2>${{ tax|floatformat:2 }}</h2>
                     </div>
                 </div>
 
@@ -91,7 +91,7 @@
 
                 <div class="total_price_wrapper">
                     <h2>TOTAL:</h2>
-                    <h2>U${{ total }}</h2>
+                    <h2>U${{ total|floatformat:2 }}</h2>
                 </div>
 
                 <form class="payment_form_wrapper" method="POST" action="{% url 'checkout' %}">

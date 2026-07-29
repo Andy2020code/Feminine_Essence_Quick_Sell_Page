@@ -74,6 +74,14 @@
     margin: 0 30px 0 30px;
 }
 
+.store_location_wrapper strong {
+    width: 80%;
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    color: var(--text_color_03);
+}
+
 @media screen and (max-width: 450px) {
 
     .store_details_title,
@@ -107,6 +115,7 @@
 
     iframe {
         width: 350px;
-        height: auto;
+        height: 300px;
+        border-radius: 10px;
     }
 }
