@@ -1,8 +1,10 @@
-import os
+from django.views import View
 from .models import Product, CosmeticProduct, Badge, CosmeticBadge, Order
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import SuspiciousOperation
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse, JsonResponse
@@ -10,18 +12,25 @@ from square.environment import SquareEnvironment
 from django.contrib.auth import logout
 from django.db import transaction
 from django.conf import settings
+from django.urls import reverse
 from functools import lru_cache
 from dotenv import load_dotenv
 from decimal import Decimal
 from square import Square
 from .cart import CartService
+import datetime
 import hashlib
+import logging
 import base64
 import time
 import uuid
 import json
 import hmac
-from django.urls import reverse
+import os
+
+
+logger = logging.getLogger('csp.violations')
+critical_logger = logging.getLogger('csp.critical')
 load_dotenv()
 
 def user_signup(request):

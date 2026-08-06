@@ -23,25 +23,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7huefj@y7bjo)8rprz=aby4hx830z*a8o5a!@l5sb_im)$2sh^'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DJANGO_SETTINGS_MODULE")
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-    "feminineessencestore.com",
-    "www.feminineessencestore.com",
-]
+if DEBUG is True :
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
 
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
+ALLOWED_HOSTS = [host.strip() for host in os.getenv("ALLOWED_HOSTS", "").split(",") if host.strip()]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://feminineessencestore.com",
-    "https://www.feminineessencestore.com",
-]
-
+CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",") if origin.strip()]
 
 # Application definition
 
@@ -60,6 +56,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'core.middleware.csp.ContentSecurityPolicyMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.csp_nonce',
             ],
         },
     },
@@ -160,3 +158,97 @@ SQUARE_WEBHOOK_URL = os.getenv("SQUARE_WEBHOOK_URL")
 LOGIN_URL = "ueser_login"
 LOGIN_REDIRECT_URL = "landing"
 LOGOUT_REDIRECT_URL = "user_login"
+
+
+# ─── CSP Settings ────────────────────────────────────────────────────────────
+CSP_REPORT_ONLY = os.getenv("CSP_REPORT_ONLY")          # True = report-only mode (use during testing)
+CSP_REPORT_URI = '/csp-report/'
+CDN_DOMAIN = os.environ.get('CDN_DOMAIN', '')
+DOMAIN = os.getenv("DOMAIN")
+
+# ─── Security Settings ───────────────────────────────────────────────────────
+SECURE_BROWSER_XSS_FILTER = False
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin'
+SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE") 
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SECURE = os.getenv("CSRF_COOKIE_SECURE")
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = 'Strict'
+
+# ─── Caching (for CSP rate limiting) ─────────────────────────────────────────
+CACHE_TYPE = os.environ.get("CACHE_TYPE", "locmem")
+
+if CACHE_TYPE == "redis":
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": os.environ.get("REDIS_URL", "redis://127.0.0.1:6379/1"),
+        }
+    }
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "feminine-essence-dev-cache",
+        }
+    }
+
+# ─── Logging ─────────────────────────────────────────────────────────────────
+LOG_DIR = BASE_DIR / 'var' / 'log' / 'feminineessence'
+os.makedirs(LOG_DIR, exist_ok=True)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'json': {
+            '()': 'pythonjsonlogger.jsonlogger.JsonFormatter',
+            'format': '%(asctime)s %(levelname)s %(name)s %(message)s',
+        },
+    },
+    'handlers': {
+        'csp_file': {
+            'level': 'WARNING',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOG_DIR / 'csp_violations.log',
+            'maxBytes': 10 * 1024 * 1024,  # 10MB
+            'backupCount': 30,
+            'formatter': 'json',
+        },
+        'csp_critical_file': {
+            'level': 'CRITICAL',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOG_DIR / 'csp_critical.log',
+            'maxBytes': 5 * 1024 * 1024,
+            'backupCount': 30,
+            'formatter': 'json',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'mail_admins': {
+            'level': 'CRITICAL',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+    },
+    'loggers': {
+        'csp.violations': {
+            'handlers': ['csp_file', 'console'],
+            'level': 'WARNING',
+            'propagate': False,
+        },
+        'csp.critical': {
+            'handlers': ['csp_critical_file', 'mail_admins', 'console'],
+            'level': 'CRITICAL',
+            'propagate': False,
+        },
+    },
+}

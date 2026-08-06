@@ -113,5 +113,59 @@ class CartItem(models.Model):
 
     def total_price(self):
         return self.price * self.quantity
-    
 
+
+class CSPViolation(models.Model):
+    """Stores CSP violation reports for analysis."""
+
+    DISPOSITION_CHOICES = [
+        ('enforce', 'Enforce'),
+        ('report', 'Report Only'),
+    ]
+
+    timestamp = models.DateTimeField(auto_now_add=True, db_index=True)
+    ip = models.GenericIPAddressField(null=True, blank=True)
+    user_agent = models.CharField(max_length=500, blank=True)
+    document_uri = models.URLField(max_length=2000, blank=True)
+    referrer = models.URLField(max_length=2000, blank=True)
+    violated_directive = models.CharField(max_length=255, blank=True, db_index=True)
+    effective_directive = models.CharField(max_length=255, blank=True, db_index=True)
+    original_policy = models.TextField(blank=True)
+    blocked_uri = models.CharField(max_length=2000, blank=True, db_index=True)
+    source_file = models.CharField(max_length=2000, blank=True)
+    line_number = models.IntegerField(default=0)
+    column_number = models.IntegerField(default=0)
+    status_code = models.IntegerField(default=0)
+    script_sample = models.CharField(max_length=512, blank=True)
+    disposition = models.CharField(
+        max_length=50,
+        choices=DISPOSITION_CHOICES,
+        default='enforce'
+    )
+
+    class Meta:
+        db_table = 'csp_violations'
+        ordering = ['-timestamp']
+        verbose_name = 'CSP Violation'
+        verbose_name_plural = 'CSP Violations'
+        indexes = [
+            models.Index(fields=['-timestamp']),
+            models.Index(fields=['effective_directive', '-timestamp']),
+            models.Index(fields=['blocked_uri']),
+            models.Index(fields=['disposition']),
+        ]
+
+    def __str__(self):
+        return (
+            f"[{self.timestamp:%Y-%m-%d %H:%M}] "
+            f"{self.effective_directive} blocked {self.blocked_uri[:50]}"
+        )
+
+    @property
+    def is_critical(self) -> bool:
+        return self.effective_directive in {
+            'script-src',
+            'frame-ancestors',
+            'form-action',
+            'object-src',
+        }

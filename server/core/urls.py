@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from core.csp_report import CSPReportView
+
 
 urlpatterns = [
     path('', views.landing, name='landing'),
@@ -20,4 +22,5 @@ urlpatterns = [
     path("checkout/", views.cart_checkout, name="checkout"),
     path('order_confirmation/<int:order_id>/', views.order_confirmation, name='order_confirmation'),
     path("square/webhook/", views.square_webhook, name="square_webhook"),
+    path('csp-report/', CSPReportView.as_view(), name='csp-report'),
 ]
