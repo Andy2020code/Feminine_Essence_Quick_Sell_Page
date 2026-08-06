@@ -75,7 +75,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             'script-src': [
                 "'self'",
                 f"'nonce-{nonce}'",
-                "'strict-dynamic'",
                 # Payment
                 'https://js.stripe.com',
                 'https://www.paypal.com',

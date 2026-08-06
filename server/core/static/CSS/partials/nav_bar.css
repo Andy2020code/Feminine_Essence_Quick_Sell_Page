@@ -131,15 +131,15 @@
         visibility: hidden;
         transform: translateX(-50%) translateY(-15px);
         transition:
-            opacity 0.25s ease,
-            transform 0.25s ease,
+            opacity 0.23s ease,
+            transform 0.3s ease,
             visibility 0.25s;
     }
     
     .nav_links.active {
         opacity: 1;
         visibility: visible;
-        transform: translateX(-50%) translateY(-5px);
+        transform: translateX(-50%) translateY(-7px);
     }
 
     .nav_links li {
