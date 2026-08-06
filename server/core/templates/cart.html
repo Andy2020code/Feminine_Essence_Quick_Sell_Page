@@ -9,17 +9,13 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{% static 'CSS/cart.css' %}">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2706358202873021" | crossorigin="anonymous"></script>
+        <!-- Google Ads / gtag.js -->
+        <script nonce="{{ csp_nonce }}" async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
+        <!-- Inline Google tag configuration -->
+        <script nonce="{{ csp_nonce }}">window.dataLayer = window.dataLayer || []; function gtag() {dataLayer.push(arguments);} gtag("js", new Date()); gtag("config", "AW-18193604937");</script>
     </head>
     <body>
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'AW-18193604937');
-        </script>
 
         {% include 'partials/nav_bar.html' %}
 
