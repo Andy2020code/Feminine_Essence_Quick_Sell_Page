@@ -249,6 +249,8 @@
     color: var(--text_color_01);
     text-align: center;
     text-transform: uppercase;
+    text-decoration: none;
+    align-content: center;
     line-height: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
@@ -447,16 +449,19 @@
     margin: 30px 0 0 0;
 }
 
-.section_05 button {
+.buy_landing_page_btn {
     width: 200px;
     height: 50px;
     background: var(--background_color_01);
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    font-family: "Lato", sans-serif;
     font-size: 18px;
     font-weight: 400;
-    font-family: "Lato", sans-serif;
     color: var(--text_color_03);
+    text-decoration: none;
+    text-align: center;
+    align-content: center;
     cursor: pointer;
     margin: 30px 0 40px 0;
 }

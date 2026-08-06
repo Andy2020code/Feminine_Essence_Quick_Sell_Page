@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'CSS/home.css' %}?v={{ css_version }}">
-    <script nonce="{{ csp_nonce }}" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2706358202873021" | crossorigin="anonymous"></script>
+    <script nonce="{{ csp_nonce }}" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2706358202873021" crossorigin="anonymous"></script>
     <!-- Google Ads / gtag.js -->
     <script nonce="{{ csp_nonce }}" async src="https://www.googletagmanager.com/gtag/js?id=AW-18193604937"></script>
     <!-- Inline Google tag configuration -->
@@ -69,13 +69,13 @@
     </div>
 
     <div class="product_category_wrapper">
-      <button class="category_card" onclick="window.location.href='{% url 'lingerie_store' %}'">
+      <a class="category_card" href="{% url 'lingerie_store' %}">
           Comprar Lingerie
-      </button>
+      </a>
 
-      <button class="category_card" onclick="window.location.href='{% url 'cosmetic_store' %}'">
+      <a class="category_card" href="{% url 'cosmetic_store' %}">
           Conhecer Cosméticos
-      </button>
+      </a>
     </div>
   </section>
 
@@ -125,9 +125,9 @@
 
   <section class="section_05">
     <h2>Você merece<br>se sentir assim</h2>
-    <button class="buy_landing_page_btn" onclick="window.location.href='{% url 'lingerie_store' %}'">
-      Quero Comprar
-    </button>
+    <a class="buy_landing_page_btn" href="{% url 'lingerie_store' %}">
+        Quero Comprar
+    </a>
   </section>
 
   {% include 'partials/footer.html' %}

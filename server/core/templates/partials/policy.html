@@ -1,291 +1,291 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'CSS/partials/policy.css' %}?v={{ css_version }}">
-    <title>Policy Page</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'CSS/partials/policy.css' %}?v={{ css_version }}">
+        <title>Policy Page</title>
+    </head>
+    <body>
 
-    {% include "partials/nav_bar.html" %}
+        {% include "partials/nav_bar.html" %}
 
-    <div class="policy_wrapper">
+        <div class="policy_wrapper">
 
-        <div class="policy_container">
-            <div class="policy_dropdown">
-                <h2 class="policy_title">Privacy Policy</h2>
-                <button onclick="toggleDropdown('dropdown1', this)" class="dropdown_menu_btn">
-                    <img src="{% static "MEDIA/images/icons/chevron.png" %}" alt="dropdown icon">
-                </button>
-            </div>
+            <div class="policy_container">
+                <div class="policy_dropdown">
+                    <h2 class="policy_title">Privacy Policy</h2>
+                    <button onclick="toggleDropdown('dropdown1', this)" class="dropdown_menu_btn">
+                        <img src="{% static "MEDIA/images/icons/chevron.png" %}" alt="dropdown icon">
+                    </button>
+                </div>
 
-            <div id="dropdown1" class="policy_dropdown_container">
-                <h2 class="store_name">Feminine Essence Store</h2>
-                
-                <p class="last_updated">Last Updated: July 29th, 2026</p>
-
-                <p> Your privacy is not merely a legal obligation to us—it is a matter of trust, dignity, and respect.<br>
-                    At Feminine Essence Store, we understand that your journey with intimate wellness is personal.<br>
-                    This Privacy Policy explains how we collect, use, protect, and respect your information when you visit feminineessencestore.com,<br>
-                    place an order, or communicate with us.<br>
-
-                    By using our website, you consent to the practices described in this policy.<br>
-
-                    1. <strong>Who We Are & How to Reach Us</strong><br>
-                    Data Controller / Operator:<br>
-                    Feminine Essence, operating as Feminine Essence Store<br>
-                    Address: 1820 THE EXCHANGE SUITE 550, MARIETTA - GA, 30064, UNITED STATES]<br>
-                    Email: privacy@feminineessencestore.com<br>
-                    Data Protection / Customer Care Hours: Monday–Friday, 9:00 AM – 6:00 PM, EST<br>
-
-                    If you are located in the European Economic Area (EEA), the United Kingdom, or another jurisdiction<br>
-                    that grants you specific data rights, please address your requests to the email above.<br>
-
-                    2. <strong>Information We Collect</strong><br>
-                    We collect only the information necessary to serve you with grace and efficiency.<br>
-                    This includes:<br>
-                    <br>
-                    A. Personal & Contact Information<br>
-                    - Full name<br>
-                    - Email address<br>
-                    - Phone number<br>
-                    - Shipping and billing address<br>
-                    <br>
-                    B. Order & Transaction Information<br>
-                    - Products purchased<br>
-                    - Order value and date<br>
-                    - Payment confirmation details (we do not store full credit card numbers; see Section 5)<br>
-                    <br>
-                    C. Communication Data<br>
-                    - Emails, messages, or notes you send to our support team<br>
-                    - Preferences you share regarding products or wellness interests<br>
-                    <br>
-                    D. Technical & Usage Data<br>
-                    - IP address<br>
-                    - Browser type and device information<br>
-                    - Pages visited, time spent, and referral source<br>
-                    - Cookies and similar tracking identifiers (see Section 6)<br>
-                    <br>
-                    E. Marketing Preferences<br>
-                    - Your consent status for newsletters, promotional offers, and wellness content<br>
-                    - Opt-out selections<br>
-                    <br>
-                    We do not intentionally collect sensitive personal data<br>
-                    (e.g., health conditions, sexual orientation, or biometric data) unless you voluntarily share it in a message to our care team.<br>
-                    Any such information is treated with the highest confidentiality and is never used for marketing.<br>
-
-                    3. <strong>How We Use Your Information</strong><br>
-                    We use your data solely for the following purposes:<br>
-                </p>
-
-                <div class="privacy_table">
-                    <ul>
-                        <li>Purpose</li>
-                        <li>Legal Basis</li>
-                    </ul>
-
-                    <ul>
-                        <li>Process and fulfill orders, including shipping, tracking, and delivery updates</li>
-                        <li>Contractual necessity / Legitimate interest</li>
-                    </ul>
-
-                    <ul>
-                        <li>Process payments securely through our payment partners</li>
-                        <li>Contractual necessity</li>
-                    </ul>
-
-                    <ul>
-                        <li>Communicate with you regarding your order, account, or inquiries</li>
-                        <li>Contractual necessity / Legitimate interest</li>
-                    </ul>
-
-                    <ul>
-                        <li>Send marketing communications (only if you have opted in)</li>
-                        <li>Consent</li>
-                    </ul>
-
-                    <ul>
-                        <li>Improve our website, products, and customer experience</li>
-                        <li>Legitimate interest</li>
-                    </ul>
-
-                    <ul>
-                        <li>Prevent fraud, abuse, or security threats</li>
-                        <li>Legitimate interest / Legal obligation</li>
-                    </ul>
-
-                    <ul>
-                        <li>Comply with legal, tax, and accounting obligations</li>
-                        <li>Legal obligation</li>
-                    </ul>
-                </div> 
-
-                <p>
-                    We will never sell, rent, or trade your personal information to third parties for their marketing purposes.<br>
-
-                    4. <strong>Discretion & Sensitive Purchase Data</strong><br>
-                    We recognize that orders placed through Feminine Essence Store may relate to intimate wellness and personal care. Therefore:<br>
-
-                    - Order records are retained only as long as necessary for fulfillment, accounting, and legal compliance (see Section 8).<br>
-                    - Marketing communications are sent only to subscribers and never contain explicit product descriptions in subject lines or visible preview text unless you have explicitly requested such content.<br>
-                    - Customer service interactions are handled by trained staff bound by strict confidentiality.<br>
-
-                    5. <strong>Payment Processing & Security</strong><br>
-                    We use trusted, PCI-DSS-compliant payment processors such as Stripe / PayPal / Square / Shopify Payments to handle all transactions.<br>
-
-                    - We do not store your full credit card number, CVV, or banking details on our servers.<br>
-                    - Your payment information is encrypted and transmitted directly to the processor.<br>
-                    - In the event of a refund, only the necessary transaction identifiers are shared with the processor.<br>
-
-                    Our website uses SSL/TLS encryption (HTTPS) to protect data in transit.<br>
-
-                    6. <strong>Cookies & Tracking Technologies</strong><br>
-                    We use cookies and similar technologies to provide a seamless, personalized experience.<br>
-
-                    Essential Cookies: Required for the site to function (e.g., cart management, secure checkout).<br>
-                    Analytics Cookies: Help us understand how visitors interact with our site (e.g., via Google Analytics or similar). These collect aggregated, pseudonymous data.<br>
-                    Marketing / Preference Cookies: Allow us to remember your preferences and, with your consent, show you relevant wellness content or offers.<br>
-                    You can manage or disable non-essential cookies through your browser settings or via our cookie preference banner.<br>
-                    Note that disabling certain cookies may affect site functionality.<br>
-
-                    7. <strong>Third-Party Sharing & Service Providers</strong><br>
-                    We share your information only with trusted partners who assist us in operating our store, subject to strict confidentiality agreements:<br>
-
-                    - Shipping & Logistics Providers: USPS / FedEx / DHL / UPS / Regional Carrier — to deliver your package discreetly.<br>
-                    - Payment Processors: As noted in Section 5.
-                    - Email & Marketing Platforms: Mailchimp / Klaviyo / Shopify Email / etc. — to send transactional and opt-in marketing communications.<br>
-                    - Web Hosting & Security Providers: To maintain site performance and protect against fraud.<br>
-                    - Legal & Regulatory Authorities: Only when required by applicable law, court order, or to protect our rights and safety.<br>
-
-                    These providers are contractually prohibited from using your data for any purpose other than providing the service to us.<br>
-
-                    8. <strong>Data Retention</strong><br>
-                    We retain your personal data only for as long as necessary to fulfill the purposes outlined in this policy:<br>
-
-                    - Order & Transaction Data: Typically retained for 7 years to comply with tax, accounting, and consumer protection laws.<br>
-                    - Marketing Data: Retained until you unsubscribe or request deletion.<br>
-                    - Customer Service Correspondence: Retained for 3 years to maintain quality and resolve disputes.<br>
-
-                    Once the retention period expires, your data is securely deleted.<br>
-
-                    9. <strong>Your Privacy Rights</strong><br>
-                    Depending on your location, you may have the following rights regarding your personal data:<br>
-                    <br>
-                    For All Users:<br>
-                    - Access: Request a copy of the personal data we hold about you.<br>
-                    - Correction:Update inaccurate or incomplete information.<br>
-                    - Deletion ("Right to be Forgotten"): Request that we erase your data, subject to legal retention obligations.<br>
-                    - Restrict Processing: Limit how we use your data in certain circumstances.<br>
-                    - Data Portability: Receive your data in a structured, commonly used format.<br>
-                    - Object: Opt out of direct marketing or object to processing based on legitimate interests.<br>
-                    <br>
-                    For California Residents (CCPA/CPRA):<br>
-                    - You have the right to know what personal information we collect, use, disclose, and sell (we do not sell).<br>
-                    - You have the right to request deletion and non-discrimination for exercising your privacy rights.<br>
-                    <br>
-                    For EEA/UK Residents (GDPR):<br>
-                    - You have the rights listed above under Articles 15–22 of the GDPR.<br>
-                    - You may also lodge a complaint with your local supervisory authority.<br>
-                    <br>
-                    To Exercise Your Rights:
-                    Email us at privacy@feminineessencestore.com with the subject line "Privacy Request — [Your Name]." We will verify your identity and respond within 30 days (or within the timeframe required by your local law).<br>
+                <div id="dropdown1" class="policy_dropdown_container">
+                    <h2 class="store_name">Feminine Essence Store</h2>
                     
-                    10. <strong>Unsubscribe & Marketing Opt-Out</strong><br>
-                    You may unsubscribe from marketing emails at any time by clicking the "Unsubscribe" link at the bottom of any promotional message or by emailing us directly.<br>
-                    Please allow up to 5 business days for the request to be fully processed.<br>
+                    <p class="last_updated">Last Updated: July 29th, 2026</p>
 
-                    Transactional emails (order confirmations, shipping updates, and account security notices) will still be sent as necessary.<br>
+                    <p> Your privacy is not merely a legal obligation to us—it is a matter of trust, dignity, and respect.<br>
+                        At Feminine Essence Store, we understand that your journey with intimate wellness is personal.<br>
+                        This Privacy Policy explains how we collect, use, protect, and respect your information when you visit feminineessencestore.com,<br>
+                        place an order, or communicate with us.<br>
 
-                    11. <strong>Children's Privacy</strong><br>
-                    Feminine Essence Store does not knowingly collect personal information from individuals under the age of 18.<br>
-                    If you are a parent or guardian and believe your child has provided us with personal data without your consent, please contact us immediately so we can delete the information.<br>
+                        By using our website, you consent to the practices described in this policy.<br>
 
-                    12. <strong>International Data Transfers</strong><br>
-                    If you are accessing our site from outside the United States, please note that your data may be transferred to, stored, and processed in (Your Country)<br>
-                    or other jurisdictions where our service providers operate. We ensure appropriate safeguards (such as Standard Contractual Clauses or adequacy decisions)<br>
-                    are in place for international transfers.<br>
+                        1. <strong>Who We Are & How to Reach Us</strong><br>
+                        Data Controller / Operator:<br>
+                        Feminine Essence, operating as Feminine Essence Store<br>
+                        Address: 1820 THE EXCHANGE SUITE 550, MARIETTA - GA, 30064, UNITED STATES]<br>
+                        Email: privacy@feminineessencestore.com<br>
+                        Data Protection / Customer Care Hours: Monday–Friday, 9:00 AM – 6:00 PM, EST<br>
 
-                    13. <strong>Changes to This Policy</strong><br>
-                    We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal obligations.<br>
-                    The "Last Updated" date at the top of this page indicates the current version.<br>
-                    Significant changes will be communicated via email or a prominent notice on our website before they take effect.<br>
+                        If you are located in the European Economic Area (EEA), the United Kingdom, or another jurisdiction<br>
+                        that grants you specific data rights, please address your requests to the email above.<br>
 
-                    14. <strong>Security Measures</strong><br>
-                    While no online system is entirely immune to risk, we implement robust safeguards:<br>
+                        2. <strong>Information We Collect</strong><br>
+                        We collect only the information necessary to serve you with grace and efficiency.<br>
+                        This includes:<br>
+                        <br>
+                        A. Personal & Contact Information<br>
+                        - Full name<br>
+                        - Email address<br>
+                        - Phone number<br>
+                        - Shipping and billing address<br>
+                        <br>
+                        B. Order & Transaction Information<br>
+                        - Products purchased<br>
+                        - Order value and date<br>
+                        - Payment confirmation details (we do not store full credit card numbers; see Section 5)<br>
+                        <br>
+                        C. Communication Data<br>
+                        - Emails, messages, or notes you send to our support team<br>
+                        - Preferences you share regarding products or wellness interests<br>
+                        <br>
+                        D. Technical & Usage Data<br>
+                        - IP address<br>
+                        - Browser type and device information<br>
+                        - Pages visited, time spent, and referral source<br>
+                        - Cookies and similar tracking identifiers (see Section 6)<br>
+                        <br>
+                        E. Marketing Preferences<br>
+                        - Your consent status for newsletters, promotional offers, and wellness content<br>
+                        - Opt-out selections<br>
+                        <br>
+                        We do not intentionally collect sensitive personal data<br>
+                        (e.g., health conditions, sexual orientation, or biometric data) unless you voluntarily share it in a message to our care team.<br>
+                        Any such information is treated with the highest confidentiality and is never used for marketing.<br>
 
-                    - Encrypted data transmission (HTTPS/SSL)<br>
-                    - Restricted access to customer data on a need-to-know basis<br>
-                    - Regular security assessments of our platform and partners<br>
-                    - Secure, PCI-compliant payment infrastructure<br>
+                        3. <strong>How We Use Your Information</strong><br>
+                        We use your data solely for the following purposes:<br>
+                    </p>
 
-                    In the unlikely event of a data breach affecting your personal information, we will notify you and the relevant authorities as required by applicable law.<br>
+                    <div class="privacy_table">
+                        <ul>
+                            <li>Purpose</li>
+                            <li>Legal Basis</li>
+                        </ul>
 
-                    15. <strong>Disclaimer</strong><br>
-                    This Privacy Policy is intended to provide transparency about our practices and does not constitute legal advice.<br>
-                    For questions about how this policy applies to your specific circumstances, please consult a qualified legal professional or contact our team.<br>
+                        <ul>
+                            <li>Process and fulfill orders, including shipping, tracking, and delivery updates</li>
+                            <li>Contractual necessity / Legitimate interest</li>
+                        </ul>
 
-                    <strong>Thank You for Trusting Us.</strong><br>
-                    Your well-being—both physical and digital—is at the heart of everything we do.<br>
+                        <ul>
+                            <li>Process payments securely through our payment partners</li>
+                            <li>Contractual necessity</li>
+                        </ul>
 
-                    Feminine Essence Store<br>
-                    Website URL: feminineessencestore.com<br>
-                    customer_care@feminineessencestore.com<br>
-                    (404) 573 - 0000<br>
-                </p>
+                        <ul>
+                            <li>Communicate with you regarding your order, account, or inquiries</li>
+                            <li>Contractual necessity / Legitimate interest</li>
+                        </ul>
+
+                        <ul>
+                            <li>Send marketing communications (only if you have opted in)</li>
+                            <li>Consent</li>
+                        </ul>
+
+                        <ul>
+                            <li>Improve our website, products, and customer experience</li>
+                            <li>Legitimate interest</li>
+                        </ul>
+
+                        <ul>
+                            <li>Prevent fraud, abuse, or security threats</li>
+                            <li>Legitimate interest / Legal obligation</li>
+                        </ul>
+
+                        <ul>
+                            <li>Comply with legal, tax, and accounting obligations</li>
+                            <li>Legal obligation</li>
+                        </ul>
+                    </div> 
+
+                    <p>
+                        We will never sell, rent, or trade your personal information to third parties for their marketing purposes.<br>
+
+                        4. <strong>Discretion & Sensitive Purchase Data</strong><br>
+                        We recognize that orders placed through Feminine Essence Store may relate to intimate wellness and personal care. Therefore:<br>
+
+                        - Order records are retained only as long as necessary for fulfillment, accounting, and legal compliance (see Section 8).<br>
+                        - Marketing communications are sent only to subscribers and never contain explicit product descriptions in subject lines or visible preview text unless you have explicitly requested such content.<br>
+                        - Customer service interactions are handled by trained staff bound by strict confidentiality.<br>
+
+                        5. <strong>Payment Processing & Security</strong><br>
+                        We use trusted, PCI-DSS-compliant payment processors such as Stripe / PayPal / Square / Shopify Payments to handle all transactions.<br>
+
+                        - We do not store your full credit card number, CVV, or banking details on our servers.<br>
+                        - Your payment information is encrypted and transmitted directly to the processor.<br>
+                        - In the event of a refund, only the necessary transaction identifiers are shared with the processor.<br>
+
+                        Our website uses SSL/TLS encryption (HTTPS) to protect data in transit.<br>
+
+                        6. <strong>Cookies & Tracking Technologies</strong><br>
+                        We use cookies and similar technologies to provide a seamless, personalized experience.<br>
+
+                        Essential Cookies: Required for the site to function (e.g., cart management, secure checkout).<br>
+                        Analytics Cookies: Help us understand how visitors interact with our site (e.g., via Google Analytics or similar). These collect aggregated, pseudonymous data.<br>
+                        Marketing / Preference Cookies: Allow us to remember your preferences and, with your consent, show you relevant wellness content or offers.<br>
+                        You can manage or disable non-essential cookies through your browser settings or via our cookie preference banner.<br>
+                        Note that disabling certain cookies may affect site functionality.<br>
+
+                        7. <strong>Third-Party Sharing & Service Providers</strong><br>
+                        We share your information only with trusted partners who assist us in operating our store, subject to strict confidentiality agreements:<br>
+
+                        - Shipping & Logistics Providers: USPS / FedEx / DHL / UPS / Regional Carrier — to deliver your package discreetly.<br>
+                        - Payment Processors: As noted in Section 5.
+                        - Email & Marketing Platforms: Mailchimp / Klaviyo / Shopify Email / etc. — to send transactional and opt-in marketing communications.<br>
+                        - Web Hosting & Security Providers: To maintain site performance and protect against fraud.<br>
+                        - Legal & Regulatory Authorities: Only when required by applicable law, court order, or to protect our rights and safety.<br>
+
+                        These providers are contractually prohibited from using your data for any purpose other than providing the service to us.<br>
+
+                        8. <strong>Data Retention</strong><br>
+                        We retain your personal data only for as long as necessary to fulfill the purposes outlined in this policy:<br>
+
+                        - Order & Transaction Data: Typically retained for 7 years to comply with tax, accounting, and consumer protection laws.<br>
+                        - Marketing Data: Retained until you unsubscribe or request deletion.<br>
+                        - Customer Service Correspondence: Retained for 3 years to maintain quality and resolve disputes.<br>
+
+                        Once the retention period expires, your data is securely deleted.<br>
+
+                        9. <strong>Your Privacy Rights</strong><br>
+                        Depending on your location, you may have the following rights regarding your personal data:<br>
+                        <br>
+                        For All Users:<br>
+                        - Access: Request a copy of the personal data we hold about you.<br>
+                        - Correction:Update inaccurate or incomplete information.<br>
+                        - Deletion ("Right to be Forgotten"): Request that we erase your data, subject to legal retention obligations.<br>
+                        - Restrict Processing: Limit how we use your data in certain circumstances.<br>
+                        - Data Portability: Receive your data in a structured, commonly used format.<br>
+                        - Object: Opt out of direct marketing or object to processing based on legitimate interests.<br>
+                        <br>
+                        For California Residents (CCPA/CPRA):<br>
+                        - You have the right to know what personal information we collect, use, disclose, and sell (we do not sell).<br>
+                        - You have the right to request deletion and non-discrimination for exercising your privacy rights.<br>
+                        <br>
+                        For EEA/UK Residents (GDPR):<br>
+                        - You have the rights listed above under Articles 15–22 of the GDPR.<br>
+                        - You may also lodge a complaint with your local supervisory authority.<br>
+                        <br>
+                        To Exercise Your Rights:
+                        Email us at privacy@feminineessencestore.com with the subject line "Privacy Request — [Your Name]." We will verify your identity and respond within 30 days (or within the timeframe required by your local law).<br>
+                        
+                        10. <strong>Unsubscribe & Marketing Opt-Out</strong><br>
+                        You may unsubscribe from marketing emails at any time by clicking the "Unsubscribe" link at the bottom of any promotional message or by emailing us directly.<br>
+                        Please allow up to 5 business days for the request to be fully processed.<br>
+
+                        Transactional emails (order confirmations, shipping updates, and account security notices) will still be sent as necessary.<br>
+
+                        11. <strong>Children's Privacy</strong><br>
+                        Feminine Essence Store does not knowingly collect personal information from individuals under the age of 18.<br>
+                        If you are a parent or guardian and believe your child has provided us with personal data without your consent, please contact us immediately so we can delete the information.<br>
+
+                        12. <strong>International Data Transfers</strong><br>
+                        If you are accessing our site from outside the United States, please note that your data may be transferred to, stored, and processed in (Your Country)<br>
+                        or other jurisdictions where our service providers operate. We ensure appropriate safeguards (such as Standard Contractual Clauses or adequacy decisions)<br>
+                        are in place for international transfers.<br>
+
+                        13. <strong>Changes to This Policy</strong><br>
+                        We may update this Privacy Policy from time to time to reflect changes in our practices, technology, or legal obligations.<br>
+                        The "Last Updated" date at the top of this page indicates the current version.<br>
+                        Significant changes will be communicated via email or a prominent notice on our website before they take effect.<br>
+
+                        14. <strong>Security Measures</strong><br>
+                        While no online system is entirely immune to risk, we implement robust safeguards:<br>
+
+                        - Encrypted data transmission (HTTPS/SSL)<br>
+                        - Restricted access to customer data on a need-to-know basis<br>
+                        - Regular security assessments of our platform and partners<br>
+                        - Secure, PCI-compliant payment infrastructure<br>
+
+                        In the unlikely event of a data breach affecting your personal information, we will notify you and the relevant authorities as required by applicable law.<br>
+
+                        15. <strong>Disclaimer</strong><br>
+                        This Privacy Policy is intended to provide transparency about our practices and does not constitute legal advice.<br>
+                        For questions about how this policy applies to your specific circumstances, please consult a qualified legal professional or contact our team.<br>
+
+                        <strong>Thank You for Trusting Us.</strong><br>
+                        Your well-being—both physical and digital—is at the heart of everything we do.<br>
+
+                        Feminine Essence Store<br>
+                        Website URL: feminineessencestore.com<br>
+                        customer_care@feminineessencestore.com<br>
+                        (404) 573 - 0000<br>
+                    </p>
+                </div>
+            </div>
+
+            <div class="policy_container">
+                <div class="policy_dropdown">
+                    <h2 class="policy_title">Delivery Policy</h2>
+                    <button onclick="toggleDropdown('dropdown2', this)" class="dropdown_menu_btn">
+                        <img src="{% static "MEDIA/images/icons/chevron.png" %}" alt="dropdown icon">
+                    </button>
+                </div>
+
+                <div id="dropdown2" class="policy_dropdown_container">
+                    <p> <strong>Delivery & Shipping Policy</strong><br>
+                        Effective Date: Tuesday, June 28, 2026<br>
+                        Last Updated: Tuesday, June 28, 2026<br>
+
+                        1.0 <strong>Overview</strong><br>
+                        Feminine Essence Store (“we,” “our,” or “us”) strives to get your order to you safely, quickly, and affordably.<br>
+                        This Delivery & Shipping Policy explains how we ship orders placed on our website, the timeframes you can expect,<br>
+                        and what to do if something goes wrong with your shipment.<br>
+
+                        2.0 <strong>Order Processing</strong><br>
+                        Processing Time:<br>
+                        Orders are processed in 1 to 2 validbusiness days (Monday‑Friday) after payment is confirmed.<br>
+                        Orders placed after 6:00 PM EST will begin processing the next business day.<br>
+                        Weekends & Holidays:<br>
+                        We do not process, ship, or deliver orders on weekends or U.S. federal holidays. Any orders placed on these days will be processed on the next business day.<br>
+
+                        3.0 <strong>Shipping Methods & Carriers</strong><br>
+                        We partner with trusted carriers to offer a variety of shipping options:
+                    </p>
+
+                    <div class="privacy_table_02">
+                        <ul>
+                            <li>Method</li>
+                            <li>Carrier</li>
+                            <li>Timeline</li>
+                        </ul>
+
+                        <ul>
+                            <li>Standard</li>
+                            <li>USPS</li>
+                            <li>3 - 5 days</li>
+                        </ul>
+                    </div> 
+                </div>
             </div>
         </div>
 
-        <div class="policy_container">
-            <div class="policy_dropdown">
-                <h2 class="policy_title">Delivery Policy</h2>
-                <button onclick="toggleDropdown('dropdown2', this)" class="dropdown_menu_btn">
-                    <img src="{% static "MEDIA/images/icons/chevron.png" %}" alt="dropdown icon">
-                </button>
-            </div>
+        {% include "partials/footer.html" %}
 
-            <div id="dropdown2" class="policy_dropdown_container">
-                <p> <strong>Delivery & Shipping Policy</strong><br>
-                    Effective Date: Tuesday, June 28, 2026<br>
-                    Last Updated: Tuesday, June 28, 2026<br>
-
-                    1.0 <strong>Overview</strong><br>
-                    Feminine Essence Store (“we,” “our,” or “us”) strives to get your order to you safely, quickly, and affordably.<br>
-                    This Delivery & Shipping Policy explains how we ship orders placed on our website, the timeframes you can expect,<br>
-                    and what to do if something goes wrong with your shipment.<br>
-
-                    2.0 <strong>Order Processing</strong><br>
-                    Processing Time:<br>
-                    Orders are processed in 1 to 2 validbusiness days (Monday‑Friday) after payment is confirmed.<br>
-                    Orders placed after 6:00 PM EST will begin processing the next business day.<br>
-                    Weekends & Holidays:<br>
-                    We do not process, ship, or deliver orders on weekends or U.S. federal holidays. Any orders placed on these days will be processed on the next business day.<br>
-
-                    3.0 <strong>Shipping Methods & Carriers</strong><br>
-                    We partner with trusted carriers to offer a variety of shipping options:
-                </p>
-
-                <div class="privacy_table_02">
-                    <ul>
-                        <li>Method</li>
-                        <li>Carrier</li>
-                        <li>Timeline</li>
-                    </ul>
-
-                    <ul>
-                        <li>Standard</li>
-                        <li>USPS</li>
-                        <li>3 - 5 days</li>
-                    </ul>
-                </div> 
-            </div>
-        </div>
-    </div>
-
-    {% include "partials/footer.html" %}
-
-    <script src="{% static 'JS/partials/policy_page.js' %}"></script>
-    
-</body>
+        <script nonce="{{ csp_nonce }}" src="{% static 'JS/partials/policy_page.js' %}"></script>
+        
+    </body>
 </html>
