@@ -70,6 +70,8 @@
     </div>
 
     {% include 'partials/footer.html' %}
+
+    <script nonce="{{ csp_nonce }}" src="{% static 'JS/partials/nav_bar.js' %}"></script>
       
   </body>
 </html>
