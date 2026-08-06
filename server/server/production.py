@@ -1,8 +1,8 @@
-# config/settings/production.py
+# server/production.py
 
 from .settings import *
 
-DEBUG = True
+DEBUG = False
 
 SECURE_SSL_REDIRECT = True
 SECURE_HSTS_SECONDS = 31536000
