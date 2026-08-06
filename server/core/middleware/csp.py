@@ -81,6 +81,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
                 'https://www.paypal.com',
                 'https://*.paypal.com',
                 # Analytics
+                "https://pagead2.googlesyndication.com",
                 'https://www.googletagmanager.com',
                 'https://www.google-analytics.com',
                 # Social
@@ -114,6 +115,9 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
                 'https://api.stripe.com',
                 'https://*.paypal.com',
                 # Analytics
+                "https://www.googletagmanager.com",
+                "https://pagead2.googlesyndication.com",
+                "https://googleads.g.doubleclick.net",
                 'https://www.google-analytics.com',
                 'https://analytics.google.com',
                 'https://stats.g.doubleclick.net',
