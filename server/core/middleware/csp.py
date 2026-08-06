@@ -80,10 +80,11 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
                 'https://js.stripe.com',
                 'https://www.paypal.com',
                 'https://*.paypal.com',
-                # Analytics
-                "https://pagead2.googlesyndication.com",
+                # Google Analytics / Ads / Tag Manager
+                'https://pagead2.googlesyndication.com',
                 'https://www.googletagmanager.com',
                 'https://www.google-analytics.com',
+                'https://www.googleadservices.com',
                 # Social
                 'https://connect.facebook.net',
             ],
@@ -99,7 +100,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
                 'data:',
                 'blob:',
                 'https:',
-                # Allow your CDN explicitly
                 f"https://{getattr(settings, 'CDN_DOMAIN', '')}",
             ],
 
@@ -114,13 +114,16 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
                 # Payment APIs
                 'https://api.stripe.com',
                 'https://*.paypal.com',
-                # Analytics
-                "https://www.googletagmanager.com",
-                "https://pagead2.googlesyndication.com",
-                "https://googleads.g.doubleclick.net",
+                # Google Analytics / Ads / Tag Manager
+                'https://www.googletagmanager.com',
+                'https://pagead2.googlesyndication.com',
+                'https://googleads.g.doubleclick.net',
                 'https://www.google-analytics.com',
                 'https://analytics.google.com',
                 'https://stats.g.doubleclick.net',
+                'https://www.google.com',               # ← added
+                'https://ad.doubleclick.net',           # ← added
+                'https://www.googleadservices.com',     # ← added
                 # Facebook
                 'https://*.facebook.com',
                 'https://graph.facebook.com',
@@ -136,6 +139,8 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
                 'https://www.youtube.com',
                 'https://www.google.com',
                 'https://player.vimeo.com',
+                'https://td.doubleclick.net',           # ← added
+                'https://ad.doubleclick.net',           # ← added
             ],
 
             'frame-ancestors': ["'self'"],
@@ -164,7 +169,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             'manifest-src': ["'self'"],
         }
 
-        # Page-specific overrides (set on request by views)
         extra = getattr(request, 'csp_extra_sources', {})
         for directive, sources in extra.items():
             if directive in base_directives:
@@ -172,7 +176,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             else:
                 base_directives[directive] = sources
 
-        # Clean empty strings from CDN_DOMAIN when not set
         for directive in base_directives:
             base_directives[directive] = [
                 s for s in base_directives[directive] if s and s != 'https://'
