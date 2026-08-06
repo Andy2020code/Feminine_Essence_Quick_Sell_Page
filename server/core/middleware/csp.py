@@ -65,26 +65,19 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         return '; '.join(parts)
 
     def _get_directives(self, request, nonce: str) -> dict:
-        """
-        Return the full CSP directive dictionary.
-        Override per-page via request attributes if needed.
-        """
         base_directives = {
             'default-src': ["'self'"],
 
             'script-src': [
                 "'self'",
                 f"'nonce-{nonce}'",
-                # Payment
                 'https://js.stripe.com',
                 'https://www.paypal.com',
                 'https://*.paypal.com',
-                # Google Analytics / Ads / Tag Manager
                 'https://pagead2.googlesyndication.com',
                 'https://www.googletagmanager.com',
                 'https://www.google-analytics.com',
                 'https://www.googleadservices.com',
-                # Social
                 'https://connect.facebook.net',
             ],
 
@@ -92,6 +85,11 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
                 "'self'",
                 f"'nonce-{nonce}'",
                 'https://fonts.googleapis.com',
+            ],
+
+            # Allows inline style="..." attributes injected by Google Ads
+            'style-src-attr': [
+                "'unsafe-inline'",
             ],
 
             'img-src': [
@@ -110,23 +108,21 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
             'connect-src': [
                 "'self'",
-                # Payment APIs
                 'https://api.stripe.com',
                 'https://*.paypal.com',
-                # Google Analytics / Ads / Tag Manager
                 'https://www.googletagmanager.com',
                 'https://pagead2.googlesyndication.com',
                 'https://googleads.g.doubleclick.net',
                 'https://www.google-analytics.com',
                 'https://analytics.google.com',
                 'https://stats.g.doubleclick.net',
-                'https://www.google.com',               # ← added
-                'https://ad.doubleclick.net',           # ← added
-                'https://www.googleadservices.com',     # ← added
-                # Facebook
+                'https://www.google.com',
+                'https://ad.doubleclick.net',
+                'https://www.googleadservices.com',
+                'https://ep1.adtrafficquality.google',       # ← added
+                'https://ep2.adtrafficquality.google',       # ← added
                 'https://*.facebook.com',
                 'https://graph.facebook.com',
-                # Your own API
                 f"https://api.{getattr(settings, 'DOMAIN', 'feminineessencestore.com')}",
             ],
 
@@ -138,8 +134,11 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
                 'https://www.youtube.com',
                 'https://www.google.com',
                 'https://player.vimeo.com',
-                'https://td.doubleclick.net',           # ← added
-                'https://ad.doubleclick.net',           # ← added
+                'https://td.doubleclick.net',
+                'https://ad.doubleclick.net',
+                'https://googleads.g.doubleclick.net',       # ← added
+                'https://ep1.adtrafficquality.google',       # ← added
+                'https://ep2.adtrafficquality.google',       # ← added
             ],
 
             'frame-ancestors': ["'self'"],
@@ -151,7 +150,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             ],
 
             'base-uri': ["'self'"],
-
             'object-src': ["'none'"],
 
             'media-src': [
