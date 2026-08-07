@@ -8,5 +8,5 @@ def csp_nonce(request):
 
 def static_version(request):
     return {
-        "css_version": settings.STATIC_VERSION,
+        'css_version': getattr(settings, 'STATIC_VERSION', '1'),
     }
