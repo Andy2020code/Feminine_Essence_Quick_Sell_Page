@@ -24,3 +24,4 @@ squareup==45.0.1.20260715
 typing-inspection==0.4.2
 typing_extensions==4.16.0
 urllib3==2.7.0
+gunicorn==26.0.0
