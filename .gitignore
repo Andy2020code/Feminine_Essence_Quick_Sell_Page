@@ -31,3 +31,4 @@ env/
 #Docker
 docker-compose.override.yml
 *.env.localvenv/
+staticfiles/
