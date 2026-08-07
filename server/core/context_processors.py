@@ -1,10 +1,12 @@
-# /core/context_processors.py
+from django.conf import settings
 
 def csp_nonce(request):
-    """
-    Make CSP nonce available in every Django template automatically.
-    Add to TEMPLATES['OPTIONS']['context_processors'] in settings.
-    """
     return {
         'csp_nonce': getattr(request, 'csp_nonce', ''),
+    }
+
+# ✅ Ensure this is here
+def static_version(request):
+    return {
+        'css_version': getattr(settings, 'STATIC_VERSION', '1'),
     }
