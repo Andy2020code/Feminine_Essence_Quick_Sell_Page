@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'CSS/partials/nav_bar.css' %}?v={{ css_version }}">
+        <link rel="stylesheet" href="{% static 'CSS/partials/footer.css' %}?v={{ css_version }}">
+        <link rel="stylesheet" href="{% static 'CSS/user_signup.css' %}">
+    </head>
+    <body>
+
+        {% include 'partials/nav_bar.html' %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="signup_wrapper">
+                <div class="user_signup_card_wrapper">
+                    <h2>Inscreva-se</h2>
+
+                    <div class="info_fields_wrapper">
+                        <div class="username_wrapper">
+                            <label for="username:">Username</label>
+                            <input type="username" name="username" placeholder="Digite seu username">
+                        </div>
+
+                        <div class="email_wrapper">
+                            <label for="email:">E-mail</label>
+                            <input type="email" name="email" placeholder="Digite seu e-mail">
+                        </div>
+        
+                        <div class="password_wrapper">
+                            <label for="password:">Senha</label>
+                            <input type="password" name="password1" placeholder="Digite a senha">
+                        </div>
+
+                        <div class="password_confirmation_wrapper">
+                            <label for="password_confirmation:">Confirme Senha</label>
+                            <input type="password" name="password2" placeholder="Redigite senha">
+                        </div>
+
+                        <div class="phone_wrapper">
+                            <label for="phone:">Celular</label>
+                            <input type="phone" name="user_phone" placeholder="Digite seu celular">
+                        </div>
+
+                        {% if error %}
+                            <p class="login_error_msg">{{ error }}</p>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit">
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        {% include 'partials/footer.html' %}
+
+    </body>
+</html>

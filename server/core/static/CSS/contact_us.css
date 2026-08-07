@@ -1,0 +1,176 @@
+:root {
+    --header_color: #591615;
+    --header_strip_color: #000000;
+
+    --text_color_01: #ebd7c6;
+    --text_color_02: #000000;
+    --text_color_03: #591615;
+
+    --border_color_01: #ebd7c6;
+    --border_color_02: #000000;
+
+    --background_color_01: #edede9;
+    --background_color_02: #591615;
+    --background_color_03: #000000;
+
+    --whatsapp_color: #25D366;
+    --instagram_color: #E1306C;
+}
+
+#body {
+    width: 100%;
+    height: auto;
+}
+
+.contact_us_wrapper {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0 0 0;
+}
+
+.contact_us_wrapper h2{
+    font-size: 48px;
+    font-family: "Lato", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    text-transform: uppercase;
+    color: var(--text_color_03);
+    margin: 0 0 0 0;
+}
+
+.call_phone_wrapper,
+.apps_tag_wrapper {
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0 0 0;
+}
+
+.call_phone_wrapper img {
+    width: 50px;
+    height: 50px;
+    margin: 0 20px 0 0;
+}
+
+.call_phone_wrapper h2 {
+    font-size: 28px;
+    font-weight: 300;
+}
+
+.call_phone_wrapper a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.contact_us_devider {
+    width: 50%;
+    height: 50px;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px 0 0 0;
+}
+
+.devider_left,
+.devider_right {
+    width: 200px;
+    height: 1px;
+    background: var(--background_color_02);
+}
+
+.contact_us_devider h2 {
+    font-size: 26px;
+    font-weight: 400;
+}
+
+.apps_tag_wrapper {
+    gap: 20px;
+    margin: 50px 0 50px 0;
+}
+
+
+
+.whatsapp_wrapper,
+.insta_wrapper {
+    width: 100px;
+    height: 100px;
+    background: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border_color_02);
+    border-radius: 70px;
+    margin: 0 0 0 20px;
+}
+
+.whatsapp_wrapper img,
+.insta_wrapper img {
+    width: 50px;
+    height: 50px;
+    margin: 5px 0 0 0;
+}
+
+.whatsapp_wrapper {
+    background: var(--whatsapp_color);
+}
+
+.insta_wrapper {
+    background: var(--instagram_color);
+}
+
+@media screen and (max-width: 450px) {
+    
+    .contact_us_wrapper h2{
+        font-size: 38px;
+    }
+    
+    .call_phone_wrapper img {
+        width: 35px;
+        height: 35px;
+        margin: 0 20px 0 0;
+    }
+
+    .call_phone_wrapper h2 {
+        font-size: 28px;
+    }
+    
+    .contact_us_devider {
+        width: 80%;
+    }
+    
+    .devider_left,
+    .devider_right {
+        width: 80px;
+    }
+    
+    .contact_us_devider h2 {
+        font-size: 20px;
+    }
+    
+    .apps_tag_wrapper {
+        gap: 20px;
+    }
+    
+    .whatsapp_wrapper,
+    .insta_wrapper {
+        width: 90px;
+        height: 90px;
+        margin: 0 0 0 0;
+    }
+    
+    .whatsapp_wrapper img,
+    .insta_wrapper img {
+        width: 50px;
+        height: 50px;
+        margin: 5px 0 0 0;
+    }
+}
