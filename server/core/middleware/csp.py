@@ -45,7 +45,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         return base64.b64encode(secrets.token_bytes(32)).decode('utf-8')
 
     def _build_policy(self, request, nonce: str) -> str:
-        """Build the full CSP policy string."""
         directives = self._get_directives(request, nonce)
 
         parts = []
@@ -53,11 +52,12 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             if sources:
                 parts.append(f"{directive} {' '.join(sources)}")
 
-        # Flags
-        parts.append('upgrade-insecure-requests')
-        parts.append('block-all-mixed-content')
+        # Only add these when NOT in report-only mode
+        report_only = getattr(settings, 'CSP_REPORT_ONLY', False)
+        if not report_only:
+            parts.append('upgrade-insecure-requests')
+            parts.append('block-all-mixed-content')
 
-        # Reporting
         report_uri = getattr(settings, 'CSP_REPORT_URI', '/csp-report/')
         if report_uri:
             parts.append(f'report-uri {report_uri}')
