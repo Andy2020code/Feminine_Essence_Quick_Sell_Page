@@ -5,8 +5,8 @@ def csp_nonce(request):
         'csp_nonce': getattr(request, 'csp_nonce', ''),
     }
 
-# ✅ Ensure this is here
+
 def static_version(request):
     return {
-        'css_version': getattr(settings, 'STATIC_VERSION', '1'),
+        "css_version": settings.STATIC_VERSION,
     }
