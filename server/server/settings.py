@@ -128,7 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -138,9 +138,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "/static/"
-STATICFILES_DIRS = []
-STATIC_ROOT = BASE_DIR.parent / "staticfiles"
+BASE_DIR  = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = BASE_DIR.parent
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  
+]
+STATIC_ROOT = PROJECT_ROOT / "staticfiles" 
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -148,15 +154,16 @@ MEDIA_ROOT = BASE_DIR / "media"
 #static files update
 import subprocess
 
-def get_static_version():
+def get_static_version() -> str:
     try:
-        return subprocess.check_output(
+        result = subprocess.check_output(
             ["git", "rev-parse", "--short", "HEAD"],
             cwd=BASE_DIR.parent,
             stderr=subprocess.DEVNULL,
         ).decode().strip()
+        return result if result else str(int(time.time()))
     except Exception:
-        return "1"
+        return str(int(time.time()))
 
 STATIC_VERSION = get_static_version()
 
@@ -172,13 +179,13 @@ SQUARE_ENVIRONMENT = os.getenv("SQUARE_ENVIRONMENT", "sandbox")
 SQUARE_WEBHOOK_SIGNATURE_KEY = os.getenv("SQUARE_WEBHOOK_SIGNATURE_KEY")
 SQUARE_WEBHOOK_URL = os.getenv("SQUARE_WEBHOOK_URL")
 
-LOGIN_URL = "ueser_login"
+LOGIN_URL = "user_login"
 LOGIN_REDIRECT_URL = "landing"
 LOGOUT_REDIRECT_URL = "user_login"
 
 
 # ─── CSP Settings ────────────────────────────────────────────────────────────
-CSP_REPORT_ONLY = os.getenv("CSP_REPORT_ONLY")          # True = report-only mode (use during testing)
+CSP_REPORT_ONLY = os.getenv("CSP_REPORT_ONLY", "False").lower() == "true"
 CSP_REPORT_URI = '/csp-report/'
 CDN_DOMAIN = os.environ.get('CDN_DOMAIN', '')
 DOMAIN = os.getenv("DOMAIN")
@@ -192,7 +199,7 @@ SESSION_COOKIE_SECURE = os.getenv("SESSION_COOKIE_SECURE", "False").lower() == "
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_SECURE = os.getenv("CSRF_COOKIE_SECURE", "False").lower() == "true"
-CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False
 CSRF_COOKIE_SAMESITE = 'Strict'
 
 # ─── Caching (for CSP rate limiting) ─────────────────────────────────────────
@@ -231,6 +238,14 @@ LOGGING = {
         },
     },
     'handlers': {
+        'app_file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': LOG_DIR / 'app.log',
+            'maxBytes': 10 * 1024 * 1024,
+            'backupCount': 10,
+            'formatter': 'json',
+        },
         'csp_file': {
             'level': 'WARNING',
             'class': 'logging.handlers.RotatingFileHandler',
@@ -267,5 +282,19 @@ LOGGING = {
             'level': 'CRITICAL',
             'propagate': False,
         },
+        'core': {
+            'handlers': ['app_file', 'console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
     },
 }
+
+ADMINS = [
+    ("Anderson", os.getenv("ADMIN_EMAIL", "admin@feminineessencestore.com")),
+]
