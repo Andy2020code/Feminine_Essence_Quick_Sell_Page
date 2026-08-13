@@ -73,8 +73,16 @@ class CartService:
     def get_delivery_fee(self):
         return Decimal("25.99")
 
-    def get_sales_tax(self):
-        return Decimal("5.99")
+    def get_sales_tax(self) -> Decimal:
+        """
+        Georgia blended sales tax rate.
+        State base: 4%
+        Average local: 3-4%
+        Most GA counties fall at 7-8% combined.
+        """
+        GA_TAX_RATE = Decimal("0.08")   # 8% — covers most GA jurisdictions
+        taxable = self.get_subtotal() - self.get_discount()
+        return (taxable * GA_TAX_RATE).quantize(Decimal("0.01"))
 
     def total(self):
         total = (

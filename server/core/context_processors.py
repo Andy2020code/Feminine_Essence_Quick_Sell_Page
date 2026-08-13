@@ -1,3 +1,4 @@
+# server/core/context_processors.py
 from django.conf import settings
 
 def csp_nonce(request):

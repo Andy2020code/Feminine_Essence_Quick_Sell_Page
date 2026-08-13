@@ -30,35 +30,38 @@
 
             <div class="devider_01"></div>
 
-            <form method="POST" action="{% url 'square_checkout' 'CosmeticProduct' product.id %}">
+            {% csrf_token %}
+            <div class="product_details_buy_wrapper">
+                <h2>{{ product.name }}</h2>
+                <h2>Detalhes:</h2>
+                <p>{{ product.description }}</p>
 
-                {% csrf_token %}
-                <div class="product_details_buy_wrapper">
-                    <h2>{{ product.name }}</h2>
-                    <h2>Detalhes:</h2>
-                    <p>{{ product.description }}</p>
+                <div class="product_quantity_wrapper">
+                    <label>Quantidade</label>
+                    <select name="quantity">
+                        {% for i in qty_range %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-                    <div class="product_quantity_wrapper">
-                        <label>Quantidade</label>
-                        <select name="quantity">
-                            {% for i in qty_range %}
-                                <option value="{{ i }}">{{ i }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <p>U${{ product.price }}</p>
-                    <div class="product_detail_buy_button_wrapper">
-                        <button type="submit">
+                <p>U${{ product.price }}</p>
+                <div class="product_detail_buy_button_wrapper">
+                    <form method="POST" action="{% url 'square_checkout' 'CosmeticProduct' product.id %}">
+                        {% csrf_token %}
+                        <button class="buy_now_btn" type="submit">
                             Comprar Agora
                         </button>
+                    </form>
 
-                        <a href="{% url 'cart_add' 'CosmeticProduct' product.id %}">
+                    <form method="post" action="{% url 'cart_add' 'CosmeticProduct' product.id %}">
+                        {% csrf_token %}
+                        <button class="add_to_cart" type="submit">
                             <img src="{% static 'MEDIA/images/icons/add-to-cart.png' %}" alt="buy now icon" srcset="">
-                        </a>
-                    </div>
+                        </button>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
 
         {% include 'partials/footer.html' %}

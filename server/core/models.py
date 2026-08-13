@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django import forms
 from django.contrib.auth.models import User
+from decimal import Decimal
 
 class SignUpForm(forms.ModelForm):
     password1 = forms.CharField(widget=forms.PasswordInput)
@@ -65,29 +66,34 @@ class CosmeticProduct(models.Model):
         return self.name
     
 class Order(models.Model):
+
     STATUS_CHOICES = [
         ("pending", "Pending"),
         ("paid", "Paid"),
         ("cancelled", "Cancelled"),
     ]
 
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        null=True,       # <-- allows anonymous users
-        blank=True,
-    )
+    PRODUCT_TYPE_CHOICES = [
+        ("lingerie", "Lingerie"),
+        ("CosmeticProduct", "Cosmetic Product"),
+    ]
 
-    total_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True,)
+    status = models.CharField( max_length=20, choices=STATUS_CHOICES, default="pending",)
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, default=Decimal("0.00"),)
+    square_payment_link_id = models.CharField(max_length=255, null=True, blank=True,)
+    square_order_id = models.CharField(max_length=255, null=True, blank=True,)
 
-    square_payment_link_id = models.CharField(max_length=100, blank=True)
-    square_order_id = models.CharField(max_length=100, blank=True)
+    #Fields needed for single-product checkout + stock management
+    product_type = models.CharField(max_length=50, choices=PRODUCT_TYPE_CHOICES, null=True, blank=True,)
+    product_id = models.PositiveIntegerField(null=True, blank=True,)
+    quantity = models.PositiveIntegerField(null=True, blank=True,)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Order {self.id} - {self.status}"
+        return f"Order #{self.id} — {self.status}"
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="items")

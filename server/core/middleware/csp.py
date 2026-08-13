@@ -65,6 +65,14 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         return '; '.join(parts)
 
     def _get_directives(self, request, nonce: str) -> dict:
+
+        def _safe_domain_source(domain: str, scheme: str = "https") -> str | None:
+            """Return a CSP source string or None if domain is empty."""
+            return f"{scheme}://{domain}" if domain else None
+
+        cdn = getattr(settings, 'CDN_DOMAIN', '')
+        domain = getattr(settings, 'DOMAIN', 'feminineessencestore.com')
+    
         base_directives = {
             'default-src': ["'self'"],
 
@@ -92,13 +100,13 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
                 "'unsafe-inline'",
             ],
 
-            'img-src': [
+            'img-src': list(filter(None, [
                 "'self'",
                 'data:',
                 'blob:',
                 'https:',
-                f"https://{getattr(settings, 'CDN_DOMAIN', '')}",
-            ],
+                _safe_domain_source(cdn),          # None entries filtered out
+            ])),
 
             'font-src': [
                 "'self'",
